@@ -1,0 +1,26 @@
+# Site
+title: 'ThoughtWorks - Auras'
+
+# URL
+url: https://hm.com
+baseurl: ''
+permalink: :title/
+include: ['_pages']
+
+# Build settings
+markdown: kramdown
+port: 8200
+
+# Defaults
+defaults:
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+
+# Data
+social:
+  facebook_user: "facebook.user"
+  twitter_user: "twitteruser"

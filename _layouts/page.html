@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include head.html %}
+  </head>
+  <body>
+    <div class="tablet">
+      <div class="content">
+        <div class="page-title">
+          {{ page.title }}
+        </div>
+
+        <div class="intro-text">
+          {{ page.intro }}
+        </div>
+
+        {{ content }}
+      </div>
+    </div>
+    {% if page.permalink == '/questions' %}
+      <script src="/js/questions.js"></script>
+    {% endif %}
+  </body>
+</html>
