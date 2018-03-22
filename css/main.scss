@@ -123,3 +123,14 @@ a {
     background-color: #666;
   }
 }
+
+.photo-preview-container {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.invisible {
+  display: none;
+}

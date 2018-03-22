@@ -84,8 +84,9 @@ var randomize = function(arr) {
 
 var setQuestion = function(questionIndex) {
   if(questionIndex >= mQuestions.length) {
-    window.location = '{{ site.baseurl }}/';
+    window.location = '{{ site.baseurl }}/photo';
   }
+
   var currentSector = mQuestions[questionIndex][0];
   var mFeelings = FEELINGS[currentSector];
   randomize(mFeelings);
