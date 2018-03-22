@@ -3,31 +3,37 @@
 
 var canvasDivWidth = document.getElementById('p5-canvas').offsetWidth;
 var questionsDiv = document.getElementsByClassName('questions-container')[0];
+var retakeButtonDiv = document.getElementsByClassName('question-option-retake')[0];
+var shareButtonDiv = document.getElementsByClassName('question-option-share')[0];
 
-var brightnessMask;
-var photo, cornerAura;
+var capture, bCapture;
+var cornerAura, brightnessMask;
 
 function preload() {
   cornerAura = loadImage("{{ site.baseurl }}/assets/images/aura-corner.png");
-  photo = loadImage("{{ site.baseurl }}/assets/images/tgh.jpg");
 }
 
 function setup() {
   var cnv = createCanvas(canvasDivWidth, canvasDivWidth);
   cnv.parent('p5-canvas');
 
-  photo.resize(0, height);
+  capture = createCapture(VIDEO);
+  capture.size(720, 720);
+  capture.hide();
+  bCapture = true;
+
   brightnessMask = createGraphics(width, height);
 
   imageMode(CENTER);
-  image(photo, width/2, height/2);
 }
 
-function draw() {}
+function draw() {
+  if(bCapture) {
+    image(capture, width/2, height/2);
+  }
+}
 
 function drawAuras(bground) {
-  bground = bground || photo;
-
   push();
   translate(width/2, height/2);
 
@@ -59,8 +65,20 @@ function drawAuras(bground) {
 }
 
 function mousePressed() {
-  drawAuras(photo);
+  if(bCapture) {
+    bCapture = !bCapture;
+  }
+
+  drawAuras(capture);
   questionsDiv.style.display = "flex";
+
+  retakeButtonDiv.onclick = function() {
+    bCapture = true;
+  }
+
+  shareButtonDiv.onclick = function() {
+    resizeCanvas(canvasDivWidth/2, canvasDivWidth/2);
+  }
 }
 
 function adjustBrightnessContrast(pimg, value) {
