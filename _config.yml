@@ -2,23 +2,14 @@
 title: 'ThoughtWorks - Auras'
 
 # URL
-url: https://hm.com
-baseurl: ''
+url: ''
+baseurl: '/sus2018-proto-app'
 permalink: :title/
 include: ['_pages']
 
 # Build settings
 markdown: kramdown
 port: 8200
-
-# Defaults
-defaults:
-  -
-    scope:
-      path: ""
-      type: "pages"
-    values:
-      layout: "page"
 
 # Data
 social:

@@ -1,3 +1,6 @@
+---
+---
+
 var QUESTIONS = {
   technolgy: [
     "Machine Learning",
@@ -81,7 +84,7 @@ var randomize = function(arr) {
 
 var setQuestion = function(questionIndex) {
   if(questionIndex >= mQuestions.length) {
-    window.location = '/';
+    window.location = '{{ site.baseurl }}/';
   }
   var currentSector = mQuestions[questionIndex][0];
   var mFeelings = FEELINGS[currentSector];
