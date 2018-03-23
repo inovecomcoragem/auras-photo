@@ -1,16 +1,18 @@
 ---
 ---
 
-var canvasDivWidth = document.getElementById('p5-canvas').offsetWidth;
+var canvasDiv = document.getElementById('p5-canvas');
+var canvasDivWidth = canvasDiv.offsetWidth;
 var questionsDiv = document.getElementsByClassName('questions-container')[0];
 var retakeButtonDiv = document.getElementsByClassName('question-option-retake')[0];
 var shareButtonDiv = document.getElementsByClassName('question-option-share')[0];
 
-var capture, bCapture;
-var cornerAura, brightnessMask;
+var capture, bCapture, captureImage;
+var cornerAura, brightnessMask, resultAura;
 
 function preload() {
   cornerAura = loadImage("{{ site.baseurl }}/assets/images/aura-corner.png");
+  canvasDiv.onclick = takePicture;
 }
 
 function setup() {
@@ -18,76 +20,94 @@ function setup() {
   cnv.parent('p5-canvas');
 
   capture = createCapture(VIDEO);
-  capture.size(720, 720);
+  capture.size(960, 720);
   capture.hide();
   bCapture = true;
 
+  captureImage = createImage(capture.width, capture.height);
   brightnessMask = createGraphics(width, height);
+  brightnessMask.pixelDensity(1);
+  resultAura = createGraphics(width, height);
+  resultAura.pixelDensity(1);
 
   imageMode(CENTER);
 }
 
 function draw() {
+  background(0);
   if(bCapture) {
-    image(capture, width/2, height/2);
+    captureImage.copy(capture,
+                       0, 0, capture.width, capture.height,
+                       0, 0, captureImage.width, captureImage.height);
+    adjustBrightnessContrast(captureImage, 255);
+    image(captureImage, width/2, height/2);
+  } else {
+    image(resultAura, width/2, height/2, width, height);
   }
 }
 
 function drawAuras(bground) {
-  push();
-  translate(width/2, height/2);
+  resultAura.imageMode(CENTER);
 
-  noTint();
-  image(bground, 0, 0);
+  resultAura.push();
+  resultAura.translate(resultAura.width/2, resultAura.height/2);
+
+  resultAura.noTint();
+  resultAura.image(bground, 0, 0);
+
 
   for (var i=0; i<8; i++) {
     if (random(1.0) > 0.4) {
-      push();
-      rotate(TWO_PI * i / 8.0 + random(1.0) * PI/8.0);
+      resultAura.push();
+      resultAura.rotate(TWO_PI * i / 8.0 + random(1.0) * PI/8.0);
 
       if (random(1) < 0.333) {
-        tint(0, 0, 150, 200);
+        resultAura.tint(0, 0, 150, 200);
       } else if (random(1) < 0.66) {
-        tint(0, 150, 0, 200);
+        resultAura.tint(0, 150, 0, 200);
       } else {
-        tint(150, 0, 0, 200);
+        resultAura.tint(150, 0, 0, 200);
       }
 
-      translate(-width/random(2, 8), -height/random(2, 8));
-      image(cornerAura, 0, 0, width, height);
+      resultAura.translate(-resultAura.width/random(2, 8),
+                           -resultAura.height/random(2, 8));
+      resultAura.image(cornerAura, 0, 0, resultAura.width, resultAura.height);
 
-      tint(255, 200);
-      image(cornerAura, -width/10, -height/10, width, height);
-      pop();
+      resultAura.tint(255, 200);
+      resultAura.image(cornerAura, -resultAura.width/10, -resultAura.height/10,
+                       resultAura.width, resultAura.height);
+      resultAura.pop();
     }
   }
-  pop();
+  resultAura.pop();
 }
 
-function mousePressed() {
-  if(bCapture) {
-    bCapture = !bCapture;
-  }
+function takePicture() {
+  bCapture = false;
+  canvasDiv.onclick = function(){};
 
-  drawAuras(capture);
+  drawAuras(captureImage);
   questionsDiv.style.display = "flex";
 
   retakeButtonDiv.onclick = function() {
     bCapture = true;
+    questionsDiv.style.display = "none";
+    canvasDiv.onclick = takePicture;
   }
 
   shareButtonDiv.onclick = function() {
-    resizeCanvas(canvasDivWidth/2, canvasDivWidth/2);
+    resizeCanvas(canvasDivWidth/3, canvasDivWidth/3);
+    questionsDiv.style.display = "none";
   }
 }
 
 function adjustBrightnessContrast(pimg, value) {
   var original = createImage(pimg.width, pimg.height);
-  original.set(0, 0, pimg);
+  original.copy(pimg,
+                0, 0, pimg.width, pimg.height,
+                0, 0, original.width, original.height);
 
-  brightnessMask.beginDraw();
   brightnessMask.background(value);
-  brightnessMask.endDraw();
 
   pimg.blend(brightnessMask,
     0, 0, brightnessMask.width, brightnessMask.height,
