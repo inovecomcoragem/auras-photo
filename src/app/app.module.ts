@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { PhotoComponent } from './photo/photo.component';
 import { ResultComponent } from './result/result.component';
@@ -18,7 +19,8 @@ import { ShareComponent } from './share/share.component';
     ShareComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

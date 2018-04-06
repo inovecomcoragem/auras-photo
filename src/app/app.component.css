@@ -1,0 +1,10 @@
+.tablet {
+  height: 100vh;
+  max-height: 133vw;
+  max-width: 75vh;
+  box-sizing: border-box;
+
+  padding: 0;
+  margin: 0 auto;
+  border: 2px #000 solid;
+}
