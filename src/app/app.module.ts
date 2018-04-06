@@ -11,6 +11,9 @@ import { ResultComponent } from './result/result.component';
 import { ShareComponent } from './share/share.component';
 
 
+import { UserService } from './user.service';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +27,9 @@ import { ShareComponent } from './share/share.component';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
