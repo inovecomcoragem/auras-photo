@@ -1,29 +1,29 @@
-<div class="form-container">
+<div class="login-title">
   <h1>TW : Auras</h1>
   <h2>Faça login usando código recebido por email</h2>
-
-  <form #loginForm="ngForm">
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="text" name="email" [(ngModel)]="user.email" #email="ngModel" required>
-      <div class="form-error" *ngIf="email.invalid && email.dirty">
-        Obrigatório
-      </div>
-    </div>
-
-    <p></p>
-
-    <div class="form-group">
-      <label for="code">Código</label>
-      <input type="text" name="code" [(ngModel)]="user.code" #code="ngModel" required>
-      <div class="form-error" *ngIf="code.invalid && code.dirty">
-        Obrigatório
-      </div>
-    </div>
-
-    <button type="submit" [disabled]="!loginForm.form.valid">Entrar</button>
-    <div class="form-error" *ngIf="!foundUser">
-      Email/Código inválidos
-    </div>
-  </form>
 </div>
+
+<form class="login-form" #loginForm="ngForm">
+  <div class="login-form-group">
+    <label for="email">Email</label>
+    <input type="text" name="email" [(ngModel)]="user.email" #email="ngModel" required>
+    <div class="form-error" *ngIf="email.invalid && email.dirty">
+      Obrigatório
+    </div>
+  </div>
+
+  <p></p>
+
+  <div class="login-form-group">
+    <label for="code">Código</label>
+    <input type="text" name="code" [(ngModel)]="user.code" #code="ngModel" required>
+    <div class="form-error" *ngIf="code.invalid && code.dirty">
+      Obrigatório
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="!loginForm.form.valid">Entrar</button>
+  <div class="form-error" *ngIf="!foundUser">
+    Email/Código inválidos
+  </div>
+</form>
