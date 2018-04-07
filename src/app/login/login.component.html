@@ -5,7 +5,7 @@
   <form #loginForm="ngForm">
     <div class="form-group">
       <label for="email">Email</label>
-      <input type="text" id="email" name="email" [(ngModel)]="user.email" #email="ngModel" required>
+      <input type="text" name="email" [(ngModel)]="user.email" #email="ngModel" required>
       <div class="form-error" *ngIf="email.invalid && email.dirty">
         Obrigatório
       </div>
@@ -15,7 +15,7 @@
 
     <div class="form-group">
       <label for="code">Código</label>
-      <input type="text" id="code" name="code" [(ngModel)]="user.code" #code="ngModel" required>
+      <input type="text" name="code" [(ngModel)]="user.code" #code="ngModel" required>
       <div class="form-error" *ngIf="code.invalid && code.dirty">
         Obrigatório
       </div>

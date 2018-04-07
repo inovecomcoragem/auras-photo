@@ -1,3 +1,16 @@
-<p>
-  result works!
-</p>
+<div class="result-photo"></div>
+
+<form class="result-form" #resultForm="ngForm">
+    <div class="reult-form-group">
+      <input type="checkbox" name="authorization" [(ngModel)]="user.authorization" #authorization="ngModel">
+
+      <label for="authorization">
+        Autorizo o uso e veiculação de minha imagem pela ThoughtWorks Brasil Software Ltda., a título gratuito, sem ônus ou restrições, para fins de divulgação do presente evento. A autorização inclui, sem limitação, projeções visuais, mídias sociais e qualquer forma de publicação online e/ou impressa
+      </label>
+    </div>
+  </form>
+
+<div class="result-buttons-container">
+  <div routerLink="/photo" class="result-button">X</div>
+  <div routerLink="/share" class="result-button">V</div>
+</div>

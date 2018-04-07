@@ -1,0 +1,32 @@
+.result-photo {
+  width: 50%;
+  height: 50%;
+  margin: 16px auto;
+  border: 2px solid #000;
+}
+
+.result-form {
+  width: 80%;
+  margin: 16px auto;
+  text-align: justify;
+}
+
+.result-buttons-container {
+  width: 40%;
+  margin: 16px auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.result-button {
+  border: 1px solid #000;
+  border-radius: 4px;
+  padding: 8px 32px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #ccc;
+  }
+}

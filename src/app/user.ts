@@ -3,4 +3,5 @@ export class User {
   name: string;
   company: string;
   code: string;
+  authorization: boolean;
 }
