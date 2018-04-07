@@ -19,5 +19,4 @@ export class ResultComponent implements OnInit {
     this.user = this.userService.user;
     this.user.authorization = true;
   }
-
 }

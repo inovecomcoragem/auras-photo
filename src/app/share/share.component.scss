@@ -1,0 +1,26 @@
+.share-qr-container {
+  position: relative;
+  width: 50%;
+  overflow: hidden;
+  text-align: center;
+  margin: 16px auto;
+}
+.share-qr-container:before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+.share-qr {
+  position:  absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border: 2px solid #000;
+}
+
+.share-text {
+  width: 80%;
+  margin: 0 auto;
+}
