@@ -1,7 +1,22 @@
-.result-photo {
+.result-photo-container {
+  position: relative;
   width: 50%;
-  height: 50%;
+  overflow: hidden;
+  text-align: center;
   margin: 16px auto;
+}
+.result-photo-container:before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+.result-photo {
+  position:  absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   border: 2px solid #000;
 }
 
