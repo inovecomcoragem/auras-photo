@@ -13,6 +13,7 @@ import { User } from '../../models/user.model';
 
 export class ResultComponent implements OnInit {
   user: User;
+  showAura = true;
 
   @ViewChild('photoResult') photoResult: ElementRef;
 
@@ -21,6 +22,16 @@ export class ResultComponent implements OnInit {
   ngOnInit() {
     this.user = this.userService.user;
     this.user.authorization = true;
-    this.photoResult.nativeElement.style['background-image'] = 'url("' + this.photoService.cameraImage + '")';
+    this.toggleAura();
+  }
+
+  toggleAura() {
+    this.showAura = !this.showAura;
+
+    let imageString = 'url("' + this.photoService.cameraImage + '")';
+    if (this.showAura) {
+      imageString = 'url("' + this.photoService.auraImage + '")';
+    }
+    this.photoResult.nativeElement.style['background-image'] = imageString;
   }
 }

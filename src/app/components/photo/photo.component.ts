@@ -43,8 +43,7 @@ export class PhotoComponent implements OnInit, OnDestroy {
     };
 
     p.setup = function() {
-      // let isPortrait = (window.innerHeight > window.innerWidth);
-      const canvas = p.createCanvas(canvasDivWidth, canvasDivWidth);
+      const canvas = p.createCanvas(canvasDivWidth, 1.333 * canvasDivWidth);
       canvas.parent('p5-canvas');
 
       capture = p.createCapture(p.VIDEO);
