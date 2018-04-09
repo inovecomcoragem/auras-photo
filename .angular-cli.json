@@ -19,7 +19,10 @@
       "styles": [
         "styles.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/p5/lib/p5.min.js",
+        "../node_modules/p5/lib/addons/p5.dom.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
