@@ -1,5 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 
+import { PhotoService } from '../../providers/photo.service';
 
 declare var p5: any;
 
@@ -9,16 +11,20 @@ declare var p5: any;
   templateUrl: './photo.component.html',
   styleUrls: ['./photo.component.scss']
 })
-export class PhotoComponent implements OnInit {
 
+export class PhotoComponent implements OnInit, OnDestroy {
   private p5;
 
   @ViewChild('p5Canvas') p5Canvas: ElementRef;
 
-  constructor() { }
+  constructor(private photoService: PhotoService, private router: Router) { }
 
   ngOnInit() {
     this.p5 = new p5(this.sketch.bind(this));
+  }
+
+  ngOnDestroy()	{
+    this.p5.remove();
   }
 
   sketch = function(p) {
@@ -28,10 +34,6 @@ export class PhotoComponent implements OnInit {
     let brightnessMask, resultAura;
 
     const canvasDivWidth = this.p5Canvas.nativeElement.offsetWidth;
-    this.p5Canvas.nativeElement.onclick = takePicture;
-
-    // TEMP
-    let pictureTaken = false;
 
     p.preload = function() {
       cornerAuraMask = p.loadImage(auraFile);
@@ -57,23 +59,26 @@ export class PhotoComponent implements OnInit {
 
     p.draw = function() {
       p.background(0);
-      if (!pictureTaken) {
-        captureImage.copy(capture,
-                          0, 0, capture.width, capture.height,
-                          0, 0, captureImage.width, captureImage.height);
-        adjustBrightnessContrast(captureImage, 255);
-        p.image(captureImage, p.width / 2, p.height / 2);
-      } else {
-        p.image(resultAura, p.width / 2, p.height / 2);
-      }
+
+      captureImage.copy(capture,
+                        0, 0, capture.width, capture.height,
+                        0, 0, captureImage.width, captureImage.height);
+      p.image(captureImage, p.width / 2, p.height / 2);
     };
 
-    function takePicture() {
-      // save captureImage
-      drawAuras(captureImage);
-      pictureTaken = true;
-      // save aura pic and go to next page
-    }
+    let takePicture = function() {
+      drawAuras(adjustBrightnessContrast(captureImage, 255));
+
+      captureImage.loadPixels();
+      resultAura.loadPixels();
+
+      this.photoService.cameraImage = captureImage.canvas.toDataURL();
+      this.photoService.auraImage = resultAura.canvas.toDataURL();
+
+      this.router.navigate(['/result']);
+    };
+    takePicture = takePicture.bind(this);
+    this.p5Canvas.nativeElement.onclick = takePicture;
 
     function drawAuras(bground) {
       resultAura.imageMode(p.CENTER);
@@ -112,20 +117,23 @@ export class PhotoComponent implements OnInit {
     }
 
     function adjustBrightnessContrast(pimg, value) {
-      const original = p.createImage(pimg.width, pimg.height);
-      original.copy(pimg,
-                    0, 0, pimg.width, pimg.height,
-                    0, 0, original.width, original.height);
+      const result = p.createImage(pimg.width, pimg.height);
+
+      result.copy(pimg,
+                  0, 0, pimg.width, pimg.height,
+                  0, 0, result.width, result.height);
 
       brightnessMask.background(value);
 
-      pimg.blend(brightnessMask,
+      result.blend(brightnessMask,
         0, 0, brightnessMask.width, brightnessMask.height,
-        0, 0, pimg.width, pimg.height, p.DARKEST);
+        0, 0, result.width, result.height, p.DARKEST);
 
-      pimg.blend(original,
-        0, 0, original.width, original.height,
-        0, 0, pimg.width, pimg.height, p.BURN);
+      result.blend(pimg,
+        0, 0, pimg.width, pimg.height,
+        0, 0, result.width, result.height, p.BURN);
+
+      return result;
     }
   };
 }

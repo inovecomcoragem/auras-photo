@@ -11,6 +11,7 @@ import { ResultComponent } from './components/result/result.component';
 import { ShareComponent } from './components/share/share.component';
 
 
+import { PhotoService } from './providers/photo.service';
 import { UserService } from './providers/user.service';
 
 
@@ -28,7 +29,8 @@ import { UserService } from './providers/user.service';
     AppRoutingModule
   ],
   providers: [
-    UserService
+    UserService,
+    PhotoService
   ],
   bootstrap: [AppComponent]
 })
