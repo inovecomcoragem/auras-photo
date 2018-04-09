@@ -5,20 +5,11 @@
 
 <form class="login-form" #loginForm="ngForm">
   <div class="login-form-group">
-    <label for="email">Email</label>
-    <input type="text" name="email" [(ngModel)]="user.email" #email="ngModel" required>
-    <div class="form-error" *ngIf="email.invalid && email.dirty">
-      Obrigatório
-    </div>
-  </div>
-
-  <p></p>
-
-  <div class="login-form-group">
     <label for="code">Código</label>
-    <input type="text" name="code" [(ngModel)]="user.code" #code="ngModel" required>
+    <input type="text" name="code" [(ngModel)]="user.code" #code="ngModel" required minlength="6" maxlength="6">
+
     <div class="form-error" *ngIf="code.invalid && code.dirty">
-      Obrigatório
+      Código precisa ter 6 dígitos.
     </div>
   </div>
 
