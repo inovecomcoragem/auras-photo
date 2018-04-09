@@ -5,13 +5,13 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { LoginComponent } from './login/login.component';
-import { PhotoComponent } from './photo/photo.component';
-import { ResultComponent } from './result/result.component';
-import { ShareComponent } from './share/share.component';
+import { LoginComponent } from './components/login/login.component';
+import { PhotoComponent } from './components/photo/photo.component';
+import { ResultComponent } from './components/result/result.component';
+import { ShareComponent } from './components/share/share.component';
 
 
-import { UserService } from './user.service';
+import { UserService } from './providers/user.service';
 
 
 @NgModule({

@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 
-import { LoginComponent } from './login/login.component';
-import { PhotoComponent } from './photo/photo.component';
-import { ResultComponent } from './result/result.component';
-import { ShareComponent } from './share/share.component';
+import { LoginComponent } from './components/login/login.component';
+import { PhotoComponent } from './components/photo/photo.component';
+import { ResultComponent } from './components/result/result.component';
+import { ShareComponent } from './components/share/share.component';
 
 
 const routes: Routes = [
