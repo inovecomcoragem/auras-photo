@@ -14,6 +14,7 @@ declare var p5: any;
 
 export class PhotoComponent implements OnInit, OnDestroy {
   private p5;
+  countDown;
 
   @ViewChild('p5Canvas') p5Canvas: ElementRef;
 
@@ -21,6 +22,7 @@ export class PhotoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.p5 = new p5(this.sketch.bind(this));
+    this.countDown = 0;
   }
 
   ngOnDestroy()	{
@@ -30,8 +32,8 @@ export class PhotoComponent implements OnInit, OnDestroy {
   sketch = function(p) {
     const auraFile: String = 'assets/aura-corner.png';
     let capture;
-    let cornerAuraMask, captureImage;
-    let brightnessMask, resultAura;
+    let cornerAuraMask;
+    let brightnessMask, capturePhoto, resultAura;
 
     const canvasDivWidth = this.p5Canvas.nativeElement.offsetWidth;
     const captureOffset = p.createVector(0, 0);
@@ -49,38 +51,62 @@ export class PhotoComponent implements OnInit, OnDestroy {
       capture.size(960, 720);
       capture.hide();
 
-      captureImage = p.createImage(p.width, p.height);
       brightnessMask = p.createGraphics(p.width, p.height);
       brightnessMask.pixelDensity(1);
       resultAura = p.createGraphics(p.width, p.height);
       resultAura.pixelDensity(1);
+      capturePhoto = p.createGraphics(p.width, p.height);
+      capturePhoto.pixelDensity(1);
 
       p.imageMode(p.CENTER);
-      captureOffset.x = (capture.width - captureImage.width) / 2;
-      captureOffset.y = (capture.height - captureImage.height) / 2;
+      captureOffset.x = (capture.width - capturePhoto.width) / 2;
+      captureOffset.y = (capture.height - capturePhoto.height) / 2;
+    };
+
+    const getAndFlipFrame = function(captureObject) {
+      const captureImageTemp = p.createImage(p.width, p.height);
+
+      captureImageTemp.copy(captureObject,
+                            captureOffset.x, captureOffset.y,
+                            captureImageTemp.width, captureImageTemp.height,
+                            0, 0,
+                            captureImageTemp.width, captureImageTemp.height);
+
+      capturePhoto.push();
+      capturePhoto.imageMode(p.CENTER);
+      capturePhoto.translate(p.width, 0);
+      capturePhoto.scale(-1.0, 1.0);
+      capturePhoto.image(captureImageTemp, p.width / 2, p.height / 2);
+      capturePhoto.pop();
+      return capturePhoto;
     };
 
     p.draw = function() {
       p.background(0);
-
-      captureImage.copy(capture,
-                        captureOffset.x, captureOffset.y,
-                        captureImage.width, captureImage.height,
-                        0, 0,
-                        captureImage.width, captureImage.height);
-      p.image(captureImage, p.width / 2, p.height / 2);
+      p.image(getAndFlipFrame(capture), p.width / 2, p.height / 2);
     };
 
+
+    let updateCounter = function() {
+      this.countDown--;
+      if (this.countDown > 0) {
+        setTimeout(updateCounter, 1000);
+      } else {
+        drawAuras(adjustBrightnessContrast(capturePhoto, 255));
+        capturePhoto.loadPixels();
+        resultAura.loadPixels();
+
+        this.photoService.cameraImage = capturePhoto.canvas.toDataURL();
+        this.photoService.auraImage = resultAura.canvas.toDataURL();
+
+        this.router.navigate(['/result']);
+      }
+    };
+    updateCounter = updateCounter.bind(this);
+
     let takePicture = function() {
-      drawAuras(adjustBrightnessContrast(captureImage, 255));
-
-      captureImage.loadPixels();
-      resultAura.loadPixels();
-
-      this.photoService.cameraImage = captureImage.canvas.toDataURL();
-      this.photoService.auraImage = resultAura.canvas.toDataURL();
-
-      this.router.navigate(['/result']);
+      this.countDown = 5;
+      setTimeout(updateCounter, 1000);
     };
     takePicture = takePicture.bind(this);
     this.p5Canvas.nativeElement.onclick = takePicture;
