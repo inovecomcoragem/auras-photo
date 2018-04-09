@@ -34,6 +34,7 @@ export class PhotoComponent implements OnInit, OnDestroy {
     let brightnessMask, resultAura;
 
     const canvasDivWidth = this.p5Canvas.nativeElement.offsetWidth;
+    const captureOffset = p.createVector(0, 0);
 
     p.preload = function() {
       cornerAuraMask = p.loadImage(auraFile);
@@ -48,21 +49,25 @@ export class PhotoComponent implements OnInit, OnDestroy {
       capture.size(960, 720);
       capture.hide();
 
-      captureImage = p.createImage(capture.width, capture.height);
+      captureImage = p.createImage(p.width, p.height);
       brightnessMask = p.createGraphics(p.width, p.height);
       brightnessMask.pixelDensity(1);
       resultAura = p.createGraphics(p.width, p.height);
       resultAura.pixelDensity(1);
 
       p.imageMode(p.CENTER);
+      captureOffset.x = (capture.width - captureImage.width) / 2;
+      captureOffset.y = (capture.height - captureImage.height) / 2;
     };
 
     p.draw = function() {
       p.background(0);
 
       captureImage.copy(capture,
-                        0, 0, capture.width, capture.height,
-                        0, 0, captureImage.width, captureImage.height);
+                        captureOffset.x, captureOffset.y,
+                        captureImage.width, captureImage.height,
+                        0, 0,
+                        captureImage.width, captureImage.height);
       p.image(captureImage, p.width / 2, p.height / 2);
     };
 
