@@ -7,7 +7,7 @@ import { User } from '../models/user.model';
 
 @Injectable()
 export class UserService {
-  private USER_SERVER_URL = environment.userURL;
+  private USER_SERVER_URL = environment.backendURL;
 
   constructor(private http: HttpClient) { }
 
