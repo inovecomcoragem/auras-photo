@@ -8,13 +8,14 @@
     <label for="code">Código</label>
     <input type="text" name="code" [(ngModel)]="user.code" #code="ngModel" required minlength="6" maxlength="6">
 
-    <div class="form-error" *ngIf="code.invalid && code.dirty">
+    <div class="form-error" *ngIf="foundUser && (code.invalid && code.dirty)">
       Código precisa ter 6 dígitos.
     </div>
   </div>
 
-  <button type="submit" [disabled]="!loginForm.form.valid">Entrar</button>
+  <button type="submit" [disabled]="!loginForm.form.valid" (click)="getUser()">Entrar</button>
+
   <div class="form-error" *ngIf="!foundUser">
-    Email/Código inválidos
+    Código inválido
   </div>
 </form>
