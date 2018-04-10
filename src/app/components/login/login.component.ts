@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
     this.userService.getUser(this.user.code).subscribe(
       function(data) {
         component.foundUser = true;
+        data['code'] = component.user.code;
         component.userService.user = data;
         component.router.navigate(['/photo']);
       },

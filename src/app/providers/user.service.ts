@@ -14,7 +14,7 @@ export class UserService {
   user: User = new User();
 
   getUser(code: string): any {
-    return this.http.get(this.USER_SERVER_URL + '/user/' + code);
+    return this.http.get(this.USER_SERVER_URL + '/person/' + code + '/results');
   }
 
   isLoggedIn(): boolean {

@@ -1,7 +1,8 @@
 export class User {
-  email: string;
-  name: string;
-  company: string;
   code: string;
-  authorization: boolean;
+  name: string;
+  email: string;
+  profile: string;
+  accepted_conditions: boolean;
+  image: string;
 }
