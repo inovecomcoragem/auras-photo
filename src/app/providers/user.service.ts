@@ -16,4 +16,8 @@ export class UserService {
   getUser(code: string): any {
     return this.http.get(this.USER_SERVER_URL + '/user/' + code);
   }
+
+  isLoggedIn(): boolean {
+    return (this.user.email && (this.user.email !== ''));
+  }
 }

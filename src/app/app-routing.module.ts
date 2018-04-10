@@ -13,7 +13,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'photo', component: PhotoComponent },
   { path: 'result', component: ResultComponent },
-  { path: 'share', component: ShareComponent }
+  { path: 'share', component: ShareComponent },
+  { path: '**', redirectTo: '/login', pathMatch: 'full' }
 ];
 
 @NgModule({

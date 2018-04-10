@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { User } from '../../models/user.model';
+import { UserService } from '../../providers/user.service';
 import { PhotoService } from '../../providers/photo.service';
 import { SensorService } from '../../providers/sensor.service';
 
@@ -20,17 +22,24 @@ export class PhotoComponent implements OnInit, OnDestroy {
 
   @ViewChild('p5Canvas') p5Canvas: ElementRef;
 
-  constructor(private photoService: PhotoService,
+  constructor(private userService: UserService,
+               private photoService: PhotoService,
                private sensorService: SensorService,
                private router: Router) { }
 
   ngOnInit() {
-    this.p5 = new p5(this.sketch.bind(this));
-    this.countDown = 0;
+    if (!this.userService.isLoggedIn()) {
+      this.router.navigate(['/login']);
+    } else {
+      this.p5 = new p5(this.sketch.bind(this));
+      this.countDown = 0;
+    }
   }
 
   ngOnDestroy()	{
-    this.p5.remove();
+    if (this.userService.isLoggedIn()) {
+      this.p5.remove();
+    }
   }
 
   sketch = function(p) {

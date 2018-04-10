@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { PhotoService } from '../../providers/photo.service';
 import { UserService } from '../../providers/user.service';
@@ -17,12 +18,18 @@ export class ResultComponent implements OnInit {
 
   @ViewChild('photoResult') photoResult: ElementRef;
 
-  constructor(private userService: UserService, private photoService: PhotoService) { }
+  constructor(private userService: UserService,
+               private photoService: PhotoService,
+               private router: Router) { }
 
   ngOnInit() {
-    this.user = this.userService.user;
-    this.user.authorization = true;
-    this.toggleAura();
+    if (!this.userService.isLoggedIn()) {
+      this.router.navigate(['/login']);
+    } else {
+      this.user = this.userService.user;
+      this.user.authorization = true;
+      this.toggleAura();
+    }
   }
 
   toggleAura() {

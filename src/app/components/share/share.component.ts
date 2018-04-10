@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 
 import { UserService } from '../../providers/user.service';
 import { User } from '../../models/user.model';
@@ -14,9 +14,14 @@ import { User } from '../../models/user.model';
 export class ShareComponent implements OnInit {
   user: User;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-    this.user = this.userService.user;
+    if (!this.userService.isLoggedIn()) {
+      this.router.navigate(['/login']);
+    } else {
+      this.user = this.userService.user;
+      // TODO: send image back to backend
+    }
   }
 }
