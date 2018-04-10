@@ -18,7 +18,7 @@ declare var p5: any;
 export class PhotoComponent implements OnInit, OnDestroy {
   private p5;
   countDown;
-  sensorInterval;
+  sensorTimeout;
 
   @ViewChild('p5Canvas') p5Canvas: ElementRef;
 
@@ -38,6 +38,7 @@ export class PhotoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy()	{
     if (this.userService.isLoggedIn()) {
+      clearTimeout(this.sensorTimeout);
       this.p5.remove();
     }
   }
@@ -151,13 +152,13 @@ export class PhotoComponent implements OnInit, OnDestroy {
     this.p5Canvas.nativeElement.onclick = takePicture;
 
     let checkTouch = function() {
-      const mComponent = this;
+      const component = this;
       this.sensorService.getTouch().subscribe(function(data) {
         if (data === 1) {
-          mComponent.sensorService.setLight('1').subscribe();
+          component.sensorService.setLight('1').subscribe();
           takePicture();
         } else {
-          setTimeout(checkTouch, 1000);
+          component.sensorTimeout = setTimeout(checkTouch, 1000);
         }
       });
     };
