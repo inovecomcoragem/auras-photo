@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "tw": "ng serve --env=tw",
     "build": "ng build --prod"
   },
   "private": true,
