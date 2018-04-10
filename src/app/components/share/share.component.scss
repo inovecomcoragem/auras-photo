@@ -1,14 +1,34 @@
-.share-qr-container {
+.share-square-container {
   position: relative;
-  width: 50%;
   overflow: hidden;
   text-align: center;
   margin: 16px auto;
 }
-.share-qr-container:before {
+.share-square-container:before {
   content: "";
   display: block;
   padding-top: 100%;
+}
+
+.share-avatar-container {
+  width: 40%;
+}
+
+.share-avatar {
+  position:  absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: 50%;
+  background-image: url('/assets/favicon.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.share-qr-container {
+  width: 20%;
 }
 
 .share-qr {
