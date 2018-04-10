@@ -10,6 +10,7 @@ import { User } from '../../models/user.model';
   templateUrl: './share.component.html',
   styleUrls: ['./share.component.scss']
 })
+
 export class ShareComponent implements OnInit {
   user: User;
 

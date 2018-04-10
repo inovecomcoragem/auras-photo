@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class SensorService {
-  private SENSOR_SERVER_URL = 'http://192.168.0.102:8000';
+  private SENSOR_SERVER_URL = environment.sensorURL;
+
   constructor(private http: HttpClient) { }
 
   getTouch(): any {
