@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { environment } from '../../../environments/environment';
+import { PhotoService } from '../../providers/photo.service';
 import { UserService } from '../../providers/user.service';
 import { User } from '../../models/user.model';
 
@@ -19,12 +20,15 @@ export class ShareComponent implements OnInit {
 
   @ViewChild('qrCanvas') qrCanvas: ElementRef;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService,
+               private photoService: PhotoService,
+               private router: Router) { }
 
   ngOnInit() {
     if (!this.userService.isLoggedIn()) {
       this.router.navigate(['/login']);
     } else {
+      this.userService.user.image = this.photoService.auraImage.replace(/^data:image\/png;base64,/, '');
       this.user = this.userService.user;
 
       const userURL = environment.resultURL + '/' + this.user.code;
@@ -37,8 +41,7 @@ export class ShareComponent implements OnInit {
                         canvasElement.style.width = '200px';
                         canvasElement.style.height = '200px';
       });
-
-      // TODO: send image back to backend
+      this.userService.sendImage(this.user).subscribe();
     }
   }
 }
