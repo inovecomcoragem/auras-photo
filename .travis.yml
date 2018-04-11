@@ -1,0 +1,21 @@
+sudo: required
+
+language: node_js
+node_js:
+  - 8
+
+notifications:
+  email: false
+
+before_script:
+  - npm install
+
+script:
+  - ./node_modules/\@angular/cli/bin/ng build --prod --base-href /auras-photo-app/
+
+before_deploy:
+  - git config --local user.name "$USER_NAME"
+  - git config --local user.email "$USER_EMAIL"
+
+deploy:
+  - 
