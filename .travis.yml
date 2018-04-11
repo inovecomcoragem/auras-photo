@@ -11,6 +11,8 @@ before_script:
   - npm install
   - git config --local user.name "$USER_NAME"
   - git config --local user.email "$USER_EMAIL"
+  - git config user.name
+  - git config user.email
 
 script:
   - ./node_modules/\@angular/cli/bin/ng build --prod --base-href "/auras-photo-app/"
