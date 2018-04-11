@@ -29,7 +29,7 @@ export class UserService {
   }
 
   sendImage(user): any {
-    const postUrl = this.USER_SERVER_URL + '/person/' + user.code + '/photo';
+    const postUrl = this.USER_SERVER_URL + '/person/' + user._id + '/photo';
     return this.http.post(postUrl, user, this.httpOptions);
   }
 }

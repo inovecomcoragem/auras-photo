@@ -31,7 +31,7 @@ export class ShareComponent implements OnInit {
       this.userService.user.image = this.photoService.auraImage.replace(/^data:image\/[jpengig]+;base64,/, '');
       this.user = this.userService.user;
 
-      const userURL = environment.resultURL + '/' + this.user.code;
+      const userURL = environment.resultURL + '/' + this.user._id;
       const canvasElement = this.qrCanvas.nativeElement;
 
       QRCode.toCanvas(canvasElement,

@@ -23,10 +23,10 @@ export class LoginComponent implements OnInit {
 
   getUser() {
     const component = this;
-    this.userService.getUser(this.user.code).subscribe(
+    this.userService.getUser(this.user._id).subscribe(
       function(data) {
         component.foundUser = true;
-        data['code'] = component.user.code;
+        data['code'] = component.user._id;
         component.userService.user = data;
         component.router.navigate(['/photo']);
       },
