@@ -135,8 +135,8 @@ export class PhotoComponent implements OnInit, OnDestroy {
         capturePhoto.loadPixels();
         resultAura.loadPixels();
 
-        this.photoService.cameraImage = capturePhoto.canvas.toDataURL();
-        this.photoService.auraImage = resultAura.canvas.toDataURL();
+        this.photoService.cameraImage = capturePhoto.canvas.toDataURL('image/jpeg');
+        this.photoService.auraImage = resultAura.canvas.toDataURL('image/jpeg');
 
         this.sensorService.setLight('0').subscribe();
         this.router.navigate(['/result']);
