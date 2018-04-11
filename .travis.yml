@@ -16,4 +16,4 @@ before_script:
 
 script:
   - ./node_modules/\@angular/cli/bin/ng build --prod --base-href "/auras-photo-app/"
-  - ./node_modules/angular-cli-ghpages/bin/angular-cli-ghpages
+  - ./node_modules/angular-cli-ghpages/bin/angular-cli-ghpages --no-silent
