@@ -6,7 +6,7 @@ git checkout --orphan gh-pages
 git rm --cached -r .
 
 mv ../node_modules .
-./node_modules/\@angular/cli/bin/ng build --prod --base-href "https://thiagohersan.github.io/auras-photo-app/"
+./node_modules/\@angular/cli/bin/ng build --prod --base-href "/auras-photo-app/"
 ls -la | grep -v "\(dist\|CNAME\|.git\|publish.sh\|node_modules\)" | xargs rm -rf
 
 cp -r dist/* .
