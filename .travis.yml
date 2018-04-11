@@ -11,11 +11,11 @@ before_script:
   - npm install
 
 script:
-  - ./node_modules/\@angular/cli/bin/ng build --prod --base-href /auras-photo-app/
+  - ./node_modules/\@angular/cli/bin/ng build --prod --base-href "/auras-photo-app/"
 
 before_deploy:
   - git config --local user.name "$USER_NAME"
   - git config --local user.email "$USER_EMAIL"
 
 deploy:
-  - 
+  - ./node_modules/angular-cli-ghpages/bin/angular-cli-ghpages
