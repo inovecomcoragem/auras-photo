@@ -6,6 +6,6 @@
 export const environment = {
   production: false,
   sensorURL: 'https://auras-sensor-server.herokuapp.com',
-  backendURL: 'http://192.168.0.102:8000',
+  backendURL: 'https://su-auras.herokuapp.com',
   resultURL: 'http://foo.com'
 };
