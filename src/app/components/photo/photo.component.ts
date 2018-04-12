@@ -191,6 +191,8 @@ export class PhotoComponent implements OnInit, OnDestroy {
       captureOffset.y = (capture.height - capturePhoto.height) / 2;
 
       checkTouch();
+      console.log(p.displayWidth + ' ' + p.displayHeight);
+      console.log(capture.width + ' ' + capture.height);
     };
 
     p.draw = function() {
