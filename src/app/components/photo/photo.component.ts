@@ -50,10 +50,11 @@ export class PhotoComponent implements OnInit, OnDestroy {
     let brightnessMask, capturePhoto, resultAura;
 
     const canvasDivWidth = this.p5Canvas.nativeElement.offsetWidth;
+    const imageSize = p.createVector(720, 960);
     const captureOffset = p.createVector(0, 0);
 
     const getAndFlipFrame = function(captureObject) {
-      const captureImageTemp = p.createImage(p.width, p.height);
+      const captureImageTemp = p.createImage(imageSize.x, imageSize.y);
 
       captureImageTemp.copy(captureObject,
                             captureOffset.x, captureOffset.y,
@@ -63,9 +64,9 @@ export class PhotoComponent implements OnInit, OnDestroy {
 
       capturePhoto.push();
       capturePhoto.imageMode(p.CENTER);
-      capturePhoto.translate(p.width, 0);
+      capturePhoto.translate(imageSize.x, 0);
       capturePhoto.scale(-1.0, 1.0);
-      capturePhoto.image(captureImageTemp, p.width / 2, p.height / 2);
+      capturePhoto.image(captureImageTemp, imageSize.x / 2, imageSize.y / 2);
       capturePhoto.pop();
       return capturePhoto;
     };
@@ -173,14 +174,16 @@ export class PhotoComponent implements OnInit, OnDestroy {
       canvas.parent('p5-canvas');
 
       capture = p.createCapture(p.VIDEO);
-      capture.size(960, 720);
+      capture.size(1280, 960);
       capture.hide();
 
-      brightnessMask = p.createGraphics(p.width, p.height);
+      brightnessMask = p.createGraphics(imageSize.x, imageSize.y);
       brightnessMask.pixelDensity(1);
-      resultAura = p.createGraphics(p.width, p.height);
+
+      resultAura = p.createGraphics(imageSize.x, imageSize.y);
       resultAura.pixelDensity(1);
-      capturePhoto = p.createGraphics(p.width, p.height);
+
+      capturePhoto = p.createGraphics(imageSize.x, imageSize.y);
       capturePhoto.pixelDensity(1);
 
       p.imageMode(p.CENTER);
@@ -192,7 +195,9 @@ export class PhotoComponent implements OnInit, OnDestroy {
 
     p.draw = function() {
       p.background(0);
-      p.image(getAndFlipFrame(capture), p.width / 2, p.height / 2);
+      p.image(getAndFlipFrame(capture),
+              p.width / 2, p.height / 2,
+              p.width, p.height);
     };
   };
 }
