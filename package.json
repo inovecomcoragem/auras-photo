@@ -4,9 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "tw": "ng serve --env=tw",
-    "build": "ng build --prod"
+    "start": "ng serve"
   },
   "private": true,
   "dependencies": {
