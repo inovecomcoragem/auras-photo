@@ -6,7 +6,7 @@
 <form class="login-form" #loginForm="ngForm">
   <div class="login-form-group">
     <label for="code">Código</label>
-    <input type="text" name="code" [(ngModel)]="user._id" #code="ngModel" required minlength="6" maxlength="6">
+    <input type="text" name="code" [(ngModel)]="user._id" #code="ngModel" required minlength="6" maxlength="7">
 
     <div class="form-error" *ngIf="foundUser && (code.invalid && code.dirty)">
       Código precisa ter 6 dígitos.
