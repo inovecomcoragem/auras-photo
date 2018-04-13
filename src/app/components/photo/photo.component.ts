@@ -175,9 +175,8 @@ export class PhotoComponent implements OnInit, OnDestroy {
       canvas.parent('p5-canvas');
 
       if (window.innerWidth < window.innerHeight) {
-        captureSize.x += captureSize.y;
-        captureSize.y = captureSize.x - captureSize.y;
-        captureSize.x = captureSize.x - captureSize.y;
+        // swap capture dimensions
+        captureSize.x = captureSize.y + (captureSize.y = captureSize.x, 0);
       }
 
       capture = p.createCapture(p.VIDEO);
