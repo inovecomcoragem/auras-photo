@@ -39,8 +39,8 @@ export class PhotoFunctions {
   adjustBrightnessContrast = function(photo) {
     const result = this.p5.createImage(photo.width, photo.height);
 
-    this.dodgeMask.background(32);
-    this.burnMask.background(128);
+    this.dodgeMask.background(18);
+    this.burnMask.background(180);
 
     result.copy(photo,
                 0, 0, photo.width, photo.height,
@@ -66,32 +66,38 @@ export class PhotoFunctions {
     result.noTint();
     result.image(photo, 0, 0);
 
-    for (let i = 0; i < 8; i++) {
-      if (this.p5.random(1.0) > 0.4) {
-        result.push();
-        result.rotate(this.p5.TWO_PI * i / 8.0 + this.p5.random(1.0) * this.p5.PI / 8.0);
-
-        if (this.p5.random(1) < 0.333) {
-          result.tint(0, 0, 150, 200);
-        } else if (this.p5.random(1) < 0.66) {
-          result.tint(0, 150, 0, 200);
-        } else {
-          result.tint(150, 0, 0, 200);
-        }
-
-        result.translate(-result.width / this.p5.random(2, 8),
-                         -result.height / this.p5.random(2, 8));
-
-        result.image(this.aura, 0, 0, result.width, result.height);
-
-        result.tint(255, 200);
-        result.image(this.aura,
-                     -result.width / 10, -result.height / 10,
-                     result.width, result.height);
-        result.pop();
-      }
+    const numQuestions = 4;
+    for (let i = 0; i < numQuestions; i++) {
+      result.push();
+      result.rotate(this.p5.TWO_PI * i / numQuestions +
+                    this.p5.random(1.0) * this.p5.PI / numQuestions);
+      this.drawAura(result, this.aura);
+      result.pop();
     }
     result.pop();
     return result;
+  };
+
+  drawAura = function(photo, aura) {
+    photo.push();
+
+    const c = ((this.p5.random(1) < 0.333) ? this.p5.color(150, 0, 0, 150) :
+               ((this.p5.random(1) < 0.333) ? this.p5.color(0, 150, 0, 150) : this.p5.color(0, 0, 150, 150)));
+
+    photo.tint(c);
+    photo.translate(-photo.width / this.p5.random(2, 8),
+                    -photo.height / this.p5.random(2, 8));
+
+    photo.image(aura, 0, 0, photo.width, photo.height);
+    aura.resize(0.25 * aura.width, 0);
+
+    c.setAlpha(200);
+    photo.tint(c);
+    photo.image(aura,
+                -photo.width / 10, -photo.height / 10,
+                 photo.width, photo.height);
+
+    aura.resize(4.0 * aura.width, 0);
+    photo.pop();
   };
 }
