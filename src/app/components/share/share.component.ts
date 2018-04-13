@@ -45,7 +45,6 @@ export class ShareComponent implements OnInit {
       });
 
       this.userService.sendImage(this.user).subscribe(function(data) {
-        console.log(data.success);
         this.imageUploaded = data.success;
       }.bind(this));
     }
