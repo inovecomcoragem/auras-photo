@@ -6,6 +6,8 @@ import { UserService } from '../../providers/user.service';
 import { PhotoService } from '../../providers/photo.service';
 import { SensorService } from '../../providers/sensor.service';
 
+import { PhotoFunctions } from './photo.p5';
+
 declare var p5: any;
 
 
@@ -44,133 +46,51 @@ export class PhotoComponent implements OnInit, OnDestroy {
   }
 
   sketch = function(p) {
-    const auraFile: String = 'assets/aura-corner.png';
-    let capture;
-    let cornerAuraMask;
-    let brightnessMask, capturePhoto, resultAura;
+    const thisComponent = this;
+    const photoFunctions = new PhotoFunctions(p);
+    let video;
+    let capturePhoto, auraPhoto;
 
-    const canvasDivWidth = this.p5Canvas.nativeElement.offsetWidth;
     const captureSize = p.createVector(1280, 960);
     const imageSize = p.createVector(720, 960);
-    const captureOffset = p.createVector(0, 0);
 
-    const getAndFlipFrame = function(captureObject) {
-      const captureImageTemp = p.createImage(imageSize.x, imageSize.y);
-
-      captureImageTemp.copy(captureObject,
-                            captureOffset.x, captureOffset.y,
-                            captureImageTemp.width, captureImageTemp.height,
-                            0, 0,
-                            captureImageTemp.width, captureImageTemp.height);
-
-      capturePhoto.push();
-      capturePhoto.imageMode(p.CENTER);
-      capturePhoto.translate(imageSize.x, 0);
-      capturePhoto.scale(-1.0, 1.0);
-      capturePhoto.image(captureImageTemp, imageSize.x / 2, imageSize.y / 2);
-      capturePhoto.pop();
-      return capturePhoto;
-    };
-
-    const drawAuras = function(bground) {
-      resultAura.imageMode(p.CENTER);
-
-      resultAura.push();
-      resultAura.translate(resultAura.width / 2, resultAura.height / 2);
-
-      resultAura.noTint();
-      resultAura.image(bground, 0, 0);
-
-      for (let i = 0; i < 8; i++) {
-        if (p.random(1.0) > 0.4) {
-          resultAura.push();
-          resultAura.rotate(p.TWO_PI * i / 8.0 + p.random(1.0) * p.PI / 8.0);
-
-          if (p.random(1) < 0.333) {
-            resultAura.tint(0, 0, 150, 200);
-          } else if (p.random(1) < 0.66) {
-            resultAura.tint(0, 150, 0, 200);
-          } else {
-            resultAura.tint(150, 0, 0, 200);
-          }
-
-          resultAura.translate(-resultAura.width / p.random(2, 8),
-                               -resultAura.height / p.random(2, 8));
-          resultAura.image(cornerAuraMask, 0, 0, resultAura.width, resultAura.height);
-
-          resultAura.tint(255, 200);
-          resultAura.image(cornerAuraMask,
-                           -resultAura.width / 10, -resultAura.height / 10,
-                           resultAura.width, resultAura.height);
-          resultAura.pop();
-        }
-      }
-      resultAura.pop();
-    };
-
-    const adjustBrightnessContrast = function(pimg, value) {
-      const result = p.createImage(pimg.width, pimg.height);
-
-      result.copy(pimg,
-                  0, 0, pimg.width, pimg.height,
-                  0, 0, result.width, result.height);
-
-      brightnessMask.background(value);
-
-      result.blend(brightnessMask,
-        0, 0, brightnessMask.width, brightnessMask.height,
-        0, 0, result.width, result.height, p.DARKEST);
-
-      result.blend(pimg,
-        0, 0, pimg.width, pimg.height,
-        0, 0, result.width, result.height, p.BURN);
-
-      return result;
-    };
-
-    let updateCounter = function() {
-      this.countDown--;
-      if (this.countDown > 0) {
+    const updateCounter = function() {
+      thisComponent.countDown--;
+      if (thisComponent.countDown > 0) {
         setTimeout(updateCounter, 1000);
       } else {
-        drawAuras(adjustBrightnessContrast(capturePhoto, 255));
+        const adjusted = photoFunctions.adjustBrightnessContrast(capturePhoto);
+        photoFunctions.drawAuras(adjusted, auraPhoto);
         capturePhoto.loadPixels();
-        resultAura.loadPixels();
+        auraPhoto.loadPixels();
 
-        this.photoService.cameraImage = capturePhoto.canvas.toDataURL('image/jpeg');
-        this.photoService.auraImage = resultAura.canvas.toDataURL('image/jpeg');
+        thisComponent.photoService.cameraImage = capturePhoto.canvas.toDataURL('image/jpeg');
+        thisComponent.photoService.auraImage = auraPhoto.canvas.toDataURL('image/jpeg');
 
-        this.sensorService.setLight('0').subscribe();
-        this.router.navigate(['/result']);
+        thisComponent.sensorService.setLight('0').subscribe();
+        thisComponent.router.navigate(['/result']);
       }
     };
-    updateCounter = updateCounter.bind(this);
 
-    let takePicture = function() {
-      this.countDown = 5;
+    const takePicture = function() {
+      thisComponent.countDown = 5;
       setTimeout(updateCounter, 1000);
     };
-    takePicture = takePicture.bind(this);
     this.p5Canvas.nativeElement.onclick = takePicture;
 
-    let checkTouch = function() {
-      const component = this;
-      this.sensorService.getTouch().subscribe(function(data) {
+    const checkTouch = function() {
+      thisComponent.sensorService.getTouch().subscribe(function(data) {
         if (data === 1) {
-          component.sensorService.setLight('1').subscribe();
+          thisComponent.sensorService.setLight('1').subscribe();
           takePicture();
         } else {
-          component.sensorTimeout = setTimeout(checkTouch, 1000);
+          thisComponent.sensorTimeout = setTimeout(checkTouch, 1000);
         }
       });
     };
-    checkTouch = checkTouch.bind(this);
-
-    p.preload = function() {
-      cornerAuraMask = p.loadImage(auraFile);
-    };
 
     p.setup = function() {
+      const canvasDivWidth = thisComponent.p5Canvas.nativeElement.offsetWidth;
       const canvas = p.createCanvas(canvasDivWidth, 1.333 * canvasDivWidth);
       canvas.parent('p5-canvas');
 
@@ -179,29 +99,24 @@ export class PhotoComponent implements OnInit, OnDestroy {
         captureSize.x = captureSize.y + (captureSize.y = captureSize.x, 0);
       }
 
-      capture = p.createCapture(p.VIDEO);
-      capture.size(captureSize.x, captureSize.y);
-      capture.hide();
+      video = p.createCapture(p.VIDEO);
+      video.size(captureSize.x, captureSize.y);
+      video.hide();
 
-      brightnessMask = p.createGraphics(imageSize.x, imageSize.y);
-      brightnessMask.pixelDensity(1);
-
-      resultAura = p.createGraphics(imageSize.x, imageSize.y);
-      resultAura.pixelDensity(1);
+      auraPhoto = p.createGraphics(imageSize.x, imageSize.y);
+      auraPhoto.pixelDensity(1);
 
       capturePhoto = p.createGraphics(imageSize.x, imageSize.y);
       capturePhoto.pixelDensity(1);
 
+      photoFunctions.calculateOffset(video, capturePhoto);
       p.imageMode(p.CENTER);
-      captureOffset.x = (capture.width - capturePhoto.width) / 2;
-      captureOffset.y = (capture.height - capturePhoto.height) / 2;
-
       checkTouch();
     };
 
     p.draw = function() {
       p.background(0);
-      p.image(getAndFlipFrame(capture),
+      p.image(photoFunctions.cropAndFlipFrame(video, capturePhoto),
               p.width / 2, p.height / 2,
               p.width, p.height);
     };
