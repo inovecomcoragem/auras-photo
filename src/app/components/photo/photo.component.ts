@@ -50,6 +50,7 @@ export class PhotoComponent implements OnInit, OnDestroy {
     let brightnessMask, capturePhoto, resultAura;
 
     const canvasDivWidth = this.p5Canvas.nativeElement.offsetWidth;
+    const captureSize = p.createVector(1280, 960);
     const imageSize = p.createVector(720, 960);
     const captureOffset = p.createVector(0, 0);
 
@@ -173,8 +174,14 @@ export class PhotoComponent implements OnInit, OnDestroy {
       const canvas = p.createCanvas(canvasDivWidth, 1.333 * canvasDivWidth);
       canvas.parent('p5-canvas');
 
+      if (window.innerWidth < window.innerHeight) {
+        captureSize.x += captureSize.y;
+        captureSize.y = captureSize.x - captureSize.y;
+        captureSize.x = captureSize.x - captureSize.y;
+      }
+
       capture = p.createCapture(p.VIDEO);
-      capture.size(1280, 960);
+      capture.size(captureSize.x, captureSize.y);
       capture.hide();
 
       brightnessMask = p.createGraphics(imageSize.x, imageSize.y);
@@ -191,8 +198,6 @@ export class PhotoComponent implements OnInit, OnDestroy {
       captureOffset.y = (capture.height - capturePhoto.height) / 2;
 
       checkTouch();
-      console.log(p.displayWidth + ' ' + p.displayHeight);
-      console.log(capture.width + ' ' + capture.height);
     };
 
     p.draw = function() {
