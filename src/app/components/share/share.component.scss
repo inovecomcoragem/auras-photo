@@ -37,3 +37,17 @@
   width: 80%;
   margin: 0 auto;
 }
+
+.share-home-button {
+  width: 20%;
+  margin: 0 auto;
+  border: 1px solid #000;
+  border-radius: 4px;
+  padding: 8px 32px;
+  cursor: pointer;
+  text-align: center;
+
+  &:hover {
+    background-color: #ccc;
+  }
+}
