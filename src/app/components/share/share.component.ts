@@ -17,6 +17,7 @@ declare var QRCode: any;
 
 export class ShareComponent implements OnInit {
   user: User;
+  imageUploaded: boolean;
 
   @ViewChild('qrCanvas') qrCanvas: ElementRef;
 
@@ -28,6 +29,7 @@ export class ShareComponent implements OnInit {
     if (!this.userService.isLoggedIn()) {
       this.router.navigate(['/login']);
     } else {
+      this.imageUploaded = false;
       this.userService.user.image = this.photoService.auraImage.replace(/^data:image\/[jpengig]+;base64,/, '');
       this.user = this.userService.user;
 
@@ -41,7 +43,11 @@ export class ShareComponent implements OnInit {
                         canvasElement.style.width = '200px';
                         canvasElement.style.height = '200px';
       });
-      this.userService.sendImage(this.user).subscribe();
+
+      this.userService.sendImage(this.user).subscribe(function(data) {
+        console.log(data.success);
+        this.imageUploaded = data.success;
+      }.bind(this));
     }
   }
 }
