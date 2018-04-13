@@ -73,6 +73,7 @@ export class PhotoComponent implements OnInit, OnDestroy {
     };
 
     const takePicture = function() {
+      thisComponent.sensorService.setLight('1').subscribe();
       thisComponent.countDown = 5;
       setTimeout(updateCounter, 1000);
     };
@@ -81,7 +82,6 @@ export class PhotoComponent implements OnInit, OnDestroy {
     const checkTouch = function() {
       thisComponent.sensorService.getTouch().subscribe(function(data) {
         if (data === 1) {
-          thisComponent.sensorService.setLight('1').subscribe();
           takePicture();
         } else {
           thisComponent.sensorTimeout = setTimeout(checkTouch, 1000);
