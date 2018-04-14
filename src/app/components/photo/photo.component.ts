@@ -19,8 +19,9 @@ declare var p5: any;
 
 export class PhotoComponent implements OnInit, OnDestroy {
   private p5;
-  countDown;
-  sensorTimeout;
+  private countDown;
+  private sensorTimeout;
+  private stream;
 
   @ViewChild('p5Canvas') p5Canvas: ElementRef;
 
@@ -41,6 +42,7 @@ export class PhotoComponent implements OnInit, OnDestroy {
   ngOnDestroy()	{
     if (this.userService.isLoggedIn()) {
       clearTimeout(this.sensorTimeout);
+      this.stream.getTracks()[0].stop();
       this.p5.remove();
     }
   }
@@ -99,7 +101,7 @@ export class PhotoComponent implements OnInit, OnDestroy {
         captureSize.x = captureSize.y + (captureSize.y = captureSize.x, 0);
       }
 
-      video = p.createCapture(p.VIDEO);
+      video = p.createCapture(p.VIDEO, (s) => thisComponent.stream = s);
       video.size(captureSize.x, captureSize.y);
       video.hide();
 
