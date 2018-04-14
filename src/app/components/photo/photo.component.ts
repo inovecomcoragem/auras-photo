@@ -19,9 +19,9 @@ declare var p5: any;
 
 export class PhotoComponent implements OnInit, OnDestroy {
   private p5;
-  private countDown;
-  private sensorTimeout;
   private stream;
+  private sensorTimeout;
+  countDown;
 
   @ViewChild('p5Canvas') p5Canvas: ElementRef;
 
