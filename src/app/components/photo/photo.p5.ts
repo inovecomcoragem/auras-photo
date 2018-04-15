@@ -1,6 +1,54 @@
+const fakeAnswers = [
+  {
+    type: 'int',
+    value: 0,
+    weight: 0.5
+  },
+  {
+    type: 'int',
+    value: 1,
+    weight: 0.2
+  },
+  {
+    type: 'int',
+    value: 2,
+    weight: 0.2
+  },
+  {
+    type: 'int',
+    value: 3,
+    weight: 0.1
+  },
+  {
+    type: 'float',
+    value: 0.0,
+    weight: 0.33
+  },
+  {
+    type: 'float',
+    value: 0.5,
+    weight: 0.25
+  },
+  {
+    type: 'float',
+    value: 0.5,
+    weight: 0.25
+  },
+  {
+    type: 'float',
+    value: 1.0,
+    weight: 0.17
+  }
+];
+
 export class PhotoFunctions {
   p5;
   aura;
+
+  private colors = {
+    float: [ 0x36A9FE, 0xFF4399 ],
+    int: [ 0xfd5f00, 0xddff00, 0x39ff14, 0x6f00ff, 0xffffff ]
+  };
 
   constructor(p5) {
     this.p5 = p5;
@@ -57,7 +105,9 @@ export class PhotoFunctions {
     return result;
   };
 
-  drawAuras = function(photo, result) {
+  drawAuras = function(photo, result, answers) {
+    answers = answers || fakeAnswers;
+
     result.imageMode(this.p5.CENTER);
 
     result.push();
@@ -66,38 +116,65 @@ export class PhotoFunctions {
     result.noTint();
     result.image(photo, 0, 0);
 
-    const numQuestions = 4;
-    for (let i = 0; i < numQuestions; i++) {
+    const auraPos = { float: 0, int: 4 };
+    answers.forEach(function(answer) {
       result.push();
-      result.rotate(this.p5.TWO_PI * i / numQuestions +
-                    this.p5.random(1.0) * this.p5.PI / numQuestions);
-      this.drawAura(result, this.aura);
+
+      result.rotate(this.p5.TWO_PI * (auraPos[answer.type] + 0.5) / answers.length);
+      auraPos[answer.type] += 1;
+
+      this.drawAura(result, this.aura, answer);
+
       result.pop();
-    }
+    }.bind(this));
+
     result.pop();
     return result;
   };
 
-  drawAura = function(photo, aura) {
+  drawAura = function(photo, aura, answer) {
     photo.push();
+    let c;
 
-    const c = ((this.p5.random(1) < 0.333) ? this.p5.color(150, 0, 0, 150) :
-               ((this.p5.random(1) < 0.333) ? this.p5.color(0, 150, 0, 150) : this.p5.color(0, 0, 150, 150)));
+    if (answer.type === 'int') {
+      c = this.intToColor(this.colors.int[answer.value]);
+    } else {
+      c = this.lerpColor(this.colors.float[0],
+                         this.colors.float[1],
+                         answer.value);
+    }
 
+    photo.translate(this.p5.random(0.2, 0.6) * photo.width, 0);
+
+    c.setAlpha(150);
     photo.tint(c);
-    photo.translate(-photo.width / this.p5.random(2, 8),
-                    -photo.height / this.p5.random(2, 8));
-
-    photo.image(aura, 0, 0, photo.width, photo.height);
-    aura.resize(0.25 * aura.width, 0);
+    // TODO: aura.resize(0.25 * photo.width, 0);
+    photo.image(aura, 0, 0);
 
     c.setAlpha(200);
     photo.tint(c);
-    photo.image(aura,
-                -photo.width / 10, -photo.height / 10,
-                 photo.width, photo.height);
+    // TODO: aura.resize(0.25 * photo.width, 0);
+    photo.image(aura, photo.width / 10, photo.height / 10);
 
-    aura.resize(4.0 * aura.width, 0);
     photo.pop();
+  };
+
+  lerpValue = function(y0, y1, pos) {
+    return (y0 + pos * (y1 - y0));
+  };
+
+  lerpColor = function(c0, c1, pos) {
+    pos = Math.max(Math.min(pos, 1.0), 0.0);
+    const red = this.lerpValue((c0 >> 16 & 0xff), (c1 >> 16 & 0xff), pos) & 0xff;
+    const green = this.lerpValue((c0 >> 8 & 0xff), (c1 >> 8 & 0xff), pos) & 0xff;
+    const blue = this.lerpValue((c0 >> 0 & 0xff), (c1 >> 0 & 0xff), pos) & 0xff;
+    return this.p5.color(red, green, blue);
+  };
+
+  intToColor = function(i) {
+    const red = (i >> 16 & 0xff);
+    const green = (i >> 8 & 0xff);
+    const blue = (i >> 0 & 0xff);
+    return this.p5.color(red, green, blue);
   };
 }
