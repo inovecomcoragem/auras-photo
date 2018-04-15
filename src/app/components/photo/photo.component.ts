@@ -62,7 +62,7 @@ export class PhotoComponent implements OnInit, OnDestroy {
         setTimeout(updateCounter, 1000);
       } else {
         const adjusted = photoFunctions.adjustBrightnessContrast(capturePhoto);
-        photoFunctions.drawAuras(adjusted, auraPhoto);
+        photoFunctions.drawAuras(adjusted, auraPhoto, null);
         capturePhoto.loadPixels();
         auraPhoto.loadPixels();
 
