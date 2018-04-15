@@ -25,22 +25,22 @@
   background-size: cover;
 }
 
-.result-form {
-  width: 80%;
+.result-confirm-container {
   margin: 16px auto;
-  text-align: justify;
+  width: 80%;
 }
 
 .result-buttons-container {
-  width: 40%;
-  margin: 16px auto;
+  width: 100%;
+  margin: 0 auto;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .result-button {
+  margin: 0 16px;
   border: 1px solid #000;
   border-radius: 4px;
   padding: 8px 32px;
@@ -49,4 +49,10 @@
   &:hover {
     background-color: #ccc;
   }
+}
+
+.result-form {
+  width: 80%;
+  margin: 16px auto;
+  text-align: justify;
 }

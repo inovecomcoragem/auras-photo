@@ -2,17 +2,23 @@
   <div class="result-photo" #photoResult (click)="toggleAura()"></div>
 </div>
 
-<form class="result-form" #resultForm="ngForm">
-    <div class="reult-form-group">
-      <input type="checkbox" name="accepted_conditions" [(ngModel)]="user.accepted_conditions" #accepted_conditions="ngModel">
 
-      <label for="accepted_conditions">
-        Autorizo o uso e veiculação de minha imagem pela ThoughtWorks Brasil Software Ltda., a título gratuito, sem ônus ou restrições, para fins de divulgação do presente evento. A autorização inclui, sem limitação, projeções visuais, mídias sociais e qualquer forma de publicação online e/ou impressa
-      </label>
-    </div>
-  </form>
-
-<div class="result-buttons-container">
-  <div routerLink="/photo" class="result-button">✖</div>
-  <div routerLink="/share" class="result-button">✔</div>
+<div class="result-confirm-container">
+  Como ficou sua foto?
+  <div class="result-buttons-container">
+    <div routerLink="/photo" class="result-button">Quero tirar de novo</div>
+    <div routerLink="/share" class="result-button">Gostei</div>
+  </div>
 </div>
+
+<form class="result-form" #resultForm="ngForm">
+  <div class="reult-form-group">
+    <input type="checkbox" name="accepted_conditions"
+           [(ngModel)]="user.accepted_conditions"
+           #accepted_conditions="ngModel">
+
+    <label for="accepted_conditions">
+      Autorizo o uso e veiculação de minha imagem pela ThoughtWorks Brasil Software Ltda., a título gratuito, sem ônus ou restrições, para fins de divulgação do presente evento. A autorização inclui, sem limitação, projeções visuais, mídias sociais e qualquer forma de publicação online e/ou impressa
+    </label>
+  </div>
+</form>
