@@ -120,7 +120,7 @@ export class PhotoFunctions {
     answers.forEach(function(answer) {
       result.push();
 
-      result.rotate(this.p5.TWO_PI * (auraPos[answer.type] + 0.5) / answers.length);
+      result.rotate(this.p5.TWO_PI * (auraPos[answer.type] + 0.666) / answers.length);
       auraPos[answer.type] += 1;
 
       this.drawAura(result, this.aura, answer);
@@ -144,7 +144,8 @@ export class PhotoFunctions {
                          answer.value);
     }
 
-    photo.translate(this.p5.random(0.2, 0.6) * photo.width, 0);
+    photo.translate(this.p5.random(0.2, 0.6) * photo.width,
+                    this.p5.random(-0.2, 0.2) * photo.width);
 
     c.setAlpha(150);
     photo.tint(c);
