@@ -29,9 +29,9 @@ export class ShareComponent implements OnInit {
     if (!this.userService.isLoggedIn()) {
       this.router.navigate(['/login']);
     } else {
+      this.user = this.userService.user;
       this.imageUploaded = false;
       this.userService.user.image = this.photoService.auraImage.replace(/^data:image\/[jpengig]+;base64,/, '');
-      this.user = this.userService.user;
 
       const userURL = environment.resultURL + '/' + this.user._id;
       const canvasElement = this.qrCanvas.nativeElement;
