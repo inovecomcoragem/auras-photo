@@ -1,30 +1,24 @@
+.share-text {
+  width: 68%;
+  margin: 66px auto 40px;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.share-email-text {
+  margin: 40px auto 47px;
+}
+
 .share-square-container {
   position: relative;
   overflow: hidden;
   text-align: center;
-  margin: 16px auto;
+  margin: 0 auto;
 }
 .share-square-container:before {
   content: "";
   display: block;
   padding-top: 100%;
-}
-
-.share-avatar-container {
-  width: 40%;
-}
-
-.share-avatar {
-  position:  absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  border-radius: 50%;
-  background-image: url('/assets/favicon.png');
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .share-qr-canvas {
@@ -33,21 +27,28 @@
   margin: 0 auto;
 }
 
-.share-text {
-  width: 80%;
+.share-home-button-container {
   margin: 0 auto;
 }
 
 .share-home-button {
-  width: 20%;
+  font-size: 24px;
+  background-color: #4a90e2;
+  border-radius: 50%;
   margin: 0 auto;
-  border: 1px solid #000;
-  border-radius: 4px;
-  padding: 8px 32px;
+  width: 38px;
+  padding: 2px 0;
   cursor: pointer;
-  text-align: center;
+  user-select: none;
 
   &:hover {
-    background-color: #ccc;
+    background-color: #4087da;
   }
+}
+
+.share-home-button-text {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  margin: 13px auto 0;
 }

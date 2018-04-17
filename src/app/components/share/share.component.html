@@ -1,13 +1,18 @@
-<div class="share-square-container share-avatar-container">
-  <div class="share-avatar"></div>
+<div class="app-text share-text">
+  <p>Visualize o resultado da<br>sua fotografia utilizando o <b>código abaixo</b> no seu smartphone</p>
 </div>
 
 <canvas #qrCanvas class="share-qr-canvas"></canvas>
 
-<div class="share-text">
-  <p>Confira o seu resultado usando o código acima.</p>
+<div class="app-text share-text share-email-text">
+  <p>Enviamos uma cópia do resultado para<br>o e-mail cadastrado<br>{{ user._id }}</p>
 </div>
 
-<div routerLink="/login" class="share-home-button" *ngIf="imageUploaded">
-  Finalizar
+<div class="app-text share-home-button-container" *ngIf="imageUploaded">
+  <div routerLink="/login" class="share-home-button">
+    <i class="ion ion-md-arrow-forward"></i>
+  </div>
+  <div class="share-home-button-text">
+    Finalizar
+  </div>
 </div>
