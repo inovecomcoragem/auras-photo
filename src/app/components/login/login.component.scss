@@ -1,9 +1,56 @@
-.login-title {
-  width: 80%;
+.login-text {
+  width: 60%;
   margin: 0 auto;
 }
 
+.login-title {
+  margin-top: 60px;
+  font-size: 21px;
+}
+
+.login-instructions {
+  margin-top: 5px;
+  font-size: 12px;
+  line-height: 22px;
+  vertical-align: middle;
+  text-transform: lowercase;
+}
+
 .login-form {
-  width: 80%;
-  margin: 0 auto;
+  width: 70%;
+  margin: 38px auto 0;
+  position: relative;
+}
+
+.login-input {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #cccccc;
+  text-align: center;
+  padding: 12px 0;
+  font: bold normal 21px/29px OpenSans;
+  text-transform: uppercase;
+}
+
+.form-button {
+  position: absolute;
+  background-color: #0ead69;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  text-align: center;
+  color: #fff;
+  padding: 3px 6px;
+  top: 11px;
+  right: 18px;
+}
+
+.error-color {
+  color: #fe607a;
+}
+
+.form-error {
+  margin: 13px auto 0;
+  font: bold normal 21px/29px OpenSans;
+  text-transform: capitalize;
 }

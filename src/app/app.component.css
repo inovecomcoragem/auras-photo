@@ -1,10 +1,42 @@
+@import './css/fonts.css';
+
+:host /deep/ .white-text {
+  font: 100 italic 26px/34px OpenSans;
+  color: #fff;
+  text-align: center;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+
 .tablet {
   height: 100vh;
   max-height: 133vw;
   max-width: 75vh;
   box-sizing: border-box;
 
-  padding: 0;
+  padding: 52px 0 0;
   margin: 0 auto;
   border: 2px #000 solid;
+
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(/assets/smoke.jpg);
+}
+
+.title-logo {
+  width: 50%;
+  height: 50px;
+  padding: 0;
+  margin: 0 auto;
+
+  background-color: rgba(0, 0, 0, 0);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(/assets/thoughtworks-logo-white.svg);
+}
+
+.title-subtitle {
+  margin: 9px auto 0;
 }
