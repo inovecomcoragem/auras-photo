@@ -5,7 +5,7 @@
 <canvas #qrCanvas class="share-qr-canvas"></canvas>
 
 <div class="app-text share-text share-email-text">
-  <p>Enviamos uma cópia do resultado para<br>o e-mail cadastrado<br>{{ user._id }}</p>
+  Enviamos uma cópia do resultado para<br>o e-mail cadastrado<br><b>{{ user.email }}</b>
 </div>
 
 <div class="app-text share-home-button-container" *ngIf="imageUploaded">
