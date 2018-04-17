@@ -1,9 +1,9 @@
-<div id="p5-canvas" class="photo-preview" #p5Canvas></div>
-
-<div class="photo-intro-text" *ngIf="countDown > 0">
-  {{ countDown }}
+<div class="photo-intro-text app-text">
+  Toque na bola de cristal para <b>tirar a sua foto</b>
 </div>
 
-<div class="photo-intro-text" *ngIf="!(countDown > 0)">
-  Toque a bola de cristal para tirar uma foto
+<div id="p5-canvas" class="photo-preview" #p5Canvas>
+  <div class="photo-countdown app-text" *ngIf="countDown > 0">
+    {{ countDown }}
+  </div>
 </div>
