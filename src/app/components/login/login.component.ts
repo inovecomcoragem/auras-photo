@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { UserService } from '../../providers/user.service';
 import { User } from '../../models/user.model';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,7 +12,7 @@ import { User } from '../../models/user.model';
 
 export class LoginComponent implements OnInit {
   user: User;
-  foundUser = true;
+  currentState: string;
 
   constructor(private userService: UserService, private router: Router) { }
 
@@ -21,18 +20,34 @@ export class LoginComponent implements OnInit {
     this.user = this.userService.user;
     this.user._id = '';
     this.user.email = '';
+    this.currentState = 'Waiting';
   }
 
   getUser() {
+    if (this.user._id.length < 6) {
+      this.currentState = 'Waiting';
+      return;
+    }
+    this.user._id = this.user._id.toUpperCase();
+
     const component = this;
     this.userService.getUser(this.user._id).subscribe(
       function(data) {
-        component.foundUser = true;
+        component.currentState = 'Found';
         component.userService.user = data;
-        component.router.navigate(['/photo']);
+
+        setTimeout(function() {
+          component.router.navigate(['/photo']);
+        }, 800);
       },
       function(error) {
-        component.foundUser = false;
+        component.currentState = 'NotFound';
       });
+  }
+
+  getResponseClass() {
+    if (this.currentState === 'Looking') { return 'form-response-maybe'; }
+    if (this.currentState === 'NotFound') { return 'form-response-no'; }
+    if (this.currentState === 'Found') { return 'form-response-yes'; }
   }
 }

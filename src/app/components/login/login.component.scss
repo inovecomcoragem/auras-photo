@@ -32,17 +32,44 @@
   text-transform: uppercase;
 }
 
-.form-button {
+.form-response {
   position: absolute;
-  background-color: #0ead69;
   border: none;
   border-radius: 50%;
   font-size: 20px;
   text-align: center;
   color: #fff;
-  padding: 3px 6px;
   top: 11px;
   right: 18px;
+}
+
+.form-response-yes {
+  padding: 3px 6px;
+  background-color: #0ead69;
+  &::before {
+    content: '✔';
+  }
+}
+
+.form-response-no {
+  background-color: #fe607a;
+  padding: 3px 7px;
+  &::before {
+    content: '✖';
+  }
+}
+
+.form-response-maybe {
+  background-color: #4a90e2;
+  padding: 3px 7px;
+  animation: spin 4s linear infinite;
+  &::before {
+    content: '✱';
+  }
+}
+
+@keyframes spin {
+  100% { transform:rotate(360deg); }
 }
 
 .error-color {
