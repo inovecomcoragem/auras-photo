@@ -1,10 +1,20 @@
+.photo-intro-text {
+  width: 80%;
+  margin: 37px auto 15px;
+  font-size: 12px;
+  line-height: 16px;
+  vertical-align: middle;
+  text-transform: none;
+}
+
 .result-photo-container {
   position: relative;
-  width: 70%;
+  width: 50%;
   box-sizing: border-box;
   overflow: hidden;
   text-align: center;
   margin: 16px auto;
+  border: 1px solid #fff;
 }
 .result-photo-container:before {
   content: "";
@@ -19,40 +29,71 @@
   left: 0;
   bottom: 0;
   right: 0;
-  border: 2px solid #000;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
 }
 
-.result-confirm-container {
-  margin: 16px auto;
-  width: 80%;
-}
-
-.result-buttons-container {
-  width: 100%;
-  margin: 0 auto;
+.result-nav-container {
+  width: 50%;
+  margin: 17px auto 17px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.result-button-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  line-height: 22px;
+  font-weight: 600;
+  text-transform: none;
 }
 
 .result-button {
-  margin: 0 16px;
-  border: 1px solid #000;
-  border-radius: 4px;
-  padding: 8px 32px;
+  margin: 0;
+  padding: 3px 7.8px;
+  border-radius: 50%;
   cursor: pointer;
+  background-color: #fff;
+  color: #000;
+  font-size: 19px;
+  font-weight: 100;
 
   &:hover {
-    background-color: #ccc;
+    background-color: #ddd;
   }
 }
 
+.result-button-text {
+  margin: 0 6px;
+}
+
 .result-form {
-  width: 80%;
+  width: 66%;
   margin: 16px auto;
   text-align: justify;
+}
+
+.result-form-group {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.result-checkbox {
+  transform: scale(1.5);
+}
+
+.result-conditions {
+  font-size: 11px;
+  line-height: 13px;
+  text-transform: none;
+  text-align: center;
 }
