@@ -57,7 +57,8 @@
 
 .result-button {
   margin: 0;
-  padding: 7.6px 11px;
+  padding: 7.6px 11.7px;
+  border: 1px #bbb solid;
   border-radius: 50%;
   cursor: pointer;
   background-color: #fff;
@@ -68,9 +69,10 @@
   font-weight: 100;
   cursor: pointer;
   user-select: none;
+  transition: background-color 0.15s linear;
 
   &:hover {
-    background-color: #ddd;
+    background-color: #eee;
   }
 }
 
