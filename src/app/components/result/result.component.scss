@@ -1,8 +1,8 @@
 .photo-intro-text {
   width: 80%;
-  margin: 37px auto 15px;
-  font-size: 12px;
-  line-height: 16px;
+  margin: 56px auto 23px;
+  font-size: 18px;
+  line-height: 24px;
   vertical-align: middle;
   text-transform: none;
 }
@@ -35,7 +35,7 @@
 
 .result-nav-container {
   width: 50%;
-  margin: 17px auto 17px;
+  margin: 27px auto 27px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -49,20 +49,22 @@
   align-items: center;
   margin: 0;
   padding: 0;
-  font-size: 12px;
-  line-height: 22px;
+  font-size: 18px;
+  line-height: 35px;
   font-weight: 600;
   text-transform: none;
 }
 
 .result-button {
   margin: 0;
-  padding: 3px 7.8px;
+  padding: 7.6px 11px;
   border-radius: 50%;
   cursor: pointer;
   background-color: #fff;
   color: #000;
-  font-size: 19px;
+  font-size: 22px;
+  line-height: 22px;
+  vertical-align: middle;
   font-weight: 100;
   cursor: pointer;
   user-select: none;
@@ -93,8 +95,9 @@
 }
 
 .result-conditions {
-  font-size: 11px;
-  line-height: 13px;
+  width: 94%;
+  font-size: 14px;
+  line-height: 20px;
   text-transform: none;
   text-align: center;
 }
