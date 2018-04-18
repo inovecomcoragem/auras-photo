@@ -40,8 +40,8 @@ export class ShareComponent implements OnInit {
                       userURL,
                       { errorCorrectionLevel: 'H', version: 4 },
                       function(error) {
-                        canvasElement.style.width = '100px';
-                        canvasElement.style.height = '100px';
+                        canvasElement.style.width = '200px';
+                        canvasElement.style.height = '200px';
       });
 
       this.userService.sendImage(this.user).subscribe(function(data) {
