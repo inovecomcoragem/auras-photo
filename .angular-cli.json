@@ -18,7 +18,7 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-        "../node_modules/ionicons/dist/css/ionicons.min.css"
+        "../node_modules/ionicons/css/ionicons.min.css"
       ],
       "scripts": [
         "../node_modules/p5/lib/p5.min.js",

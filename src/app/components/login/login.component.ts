@@ -44,10 +44,4 @@ export class LoginComponent implements OnInit {
         component.currentState = 'NotFound';
       });
   }
-
-  getResponseClass() {
-    if (this.currentState === 'Looking') { return 'form-response-maybe'; }
-    if (this.currentState === 'NotFound') { return 'form-response-no'; }
-    if (this.currentState === 'Found') { return 'form-response-yes'; }
-  }
 }

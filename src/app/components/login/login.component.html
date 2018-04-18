@@ -1,5 +1,5 @@
 <div class="app-text login-text login-title">
-  Para tirar sua fotografia digite o <b>código recebido</b><br> no campo abaixo
+  Para tirar sua fotografia<br>digite o <b>código recebido</b><br> no campo abaixo
 </div>
 
 <div class="app-text login-text login-instructions">
@@ -8,10 +8,22 @@
 
 <form class="login-form" #loginForm="ngForm">
   <div class="login-form-group">
-    <input class="login-input" type="text" name="code" [(ngModel)]="user._id" #code="ngModel" required minlength="6" maxlength="7" (keyup)="getUser()">
+    <input class="login-input" type="text" name="code" [(ngModel)]="user._id"
+           #code="ngModel" required minlength="6" maxlength="7" (keyup)="getUser()"
+           [ngClass]="(currentState === 'NotFound')?'form-response-red':''">
   </div>
 
-  <div class="form-response" [ngClass]="getResponseClass()"></div>
+  <div class="form-response form-response-maybe" *ngIf="currentState === 'Looking'">
+    <i class="ion ion-load-c"></i>
+  </div>
+
+  <div class="form-response form-response-yes" *ngIf="currentState === 'Found'">
+    <i class="ion ion-checkmark"></i>
+  </div>
+
+  <div class="form-response form-response-no" *ngIf="currentState === 'NotFound'">
+    <i class="ion ion-close"></i>
+  </div>
 
   <div class="form-error error-color" *ngIf="currentState === 'NotFound'">
     Verifique o código digitado
