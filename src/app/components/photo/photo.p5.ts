@@ -1,43 +1,43 @@
 const fakeAnswers = [
   {
-    typeOf: 'TREND',
-    value: 0,
-    weight: 0.5
-  },
-  {
-    typeOf: 'TREND',
-    value: 1,
-    weight: 0.2
-  },
-  {
-    typeOf: 'OTHER',
-    value: 2,
-    weight: 0.2
-  },
-  {
-    typeOf: 'OTHER',
-    value: 3,
-    weight: 0.1
+    typeOf: 'PROFILE',
+    value: 0.3,
+    weight: 0
   },
   {
     typeOf: 'PROFILE',
-    value: 0.0,
-    weight: 0.33
+    value: 0.2,
+    weight: 0.5
+  },
+  {
+    typeOf: 'PROFILE',
+    value: 0.2,
+    weight: 0.5
   },
   {
     typeOf: 'PROFILE',
     value: 0.5,
-    weight: 0.25
+    weight: 0
   },
   {
-    typeOf: 'OTHER',
+    typeOf: 'TREND',
     value: 0,
-    weight: 0.25
+    weight: 0
   },
   {
-    typeOf: 'OTHER',
+    typeOf: 'TREND',
     value: 1,
-    weight: 0.17
+    weight: 0.8
+  },
+  {
+    typeOf: 'TREND',
+    value: 2,
+    weight: 0.4
+  },
+  {
+    typeOf: 'TREND',
+    value: 3,
+    weight: 0
   }
 ];
 
@@ -120,7 +120,7 @@ export class PhotoFunctions {
     answers.forEach(function(answer) {
       result.push();
 
-      result.rotate(this.p5.TWO_PI * (auraPos[answer.typeOf] + 0.666) / answers.length);
+      result.rotate(this.p5.TWO_PI * (auraPos[answer.typeOf] + 0.5) / answers.length);
       auraPos[answer.typeOf] += 1;
 
       this.drawAura(result, this.aura, answer);
@@ -138,24 +138,22 @@ export class PhotoFunctions {
 
     if (answer.typeOf === 'TREND') {
       c = this.intToColor(this.colors.TREND[answer.value]);
-    } else {
+    } else if (answer.typeOf === 'PROFILE') {
       c = this.lerpColor(this.colors.PROFILE[0],
                          this.colors.PROFILE[1],
                          answer.value);
     }
 
-    photo.translate(this.p5.random(0.2, 0.6) * photo.width,
+    photo.translate(this.p5.random(0.4, 0.8) * photo.width,
                     this.p5.random(-0.2, 0.2) * photo.width);
 
-    c.setAlpha(150);
+    c.setAlpha((answer.weight > 0) ? 150 : 64);
     photo.tint(c);
-    // TODO: aura.resize(0.25 * photo.width, 0);
-    photo.image(aura, 0, 0);
+    photo.image(aura, 0, 0, photo.width, photo.height);
 
-    c.setAlpha(200);
+    c.setAlpha((answer.weight > 0) ? 200 : 100);
     photo.tint(c);
-    // TODO: aura.resize(0.25 * photo.width, 0);
-    photo.image(aura, photo.width / 10, photo.height / 10);
+    photo.image(aura, -0.1 * photo.width, 0, photo.width, photo.height);
 
     photo.pop();
   };
