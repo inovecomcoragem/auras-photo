@@ -1,46 +1,3 @@
-const fakeAnswers = [
-  {
-    typeOf: 'PROFILE',
-    value: 0.3,
-    weight: 0
-  },
-  {
-    typeOf: 'PROFILE',
-    value: 0.2,
-    weight: 0.5
-  },
-  {
-    typeOf: 'PROFILE',
-    value: 0.2,
-    weight: 0.5
-  },
-  {
-    typeOf: 'PROFILE',
-    value: 0.5,
-    weight: 0
-  },
-  {
-    typeOf: 'TREND',
-    value: 0,
-    weight: 0
-  },
-  {
-    typeOf: 'TREND',
-    value: 1,
-    weight: 0.8
-  },
-  {
-    typeOf: 'TREND',
-    value: 2,
-    weight: 0.4
-  },
-  {
-    typeOf: 'TREND',
-    value: 3,
-    weight: 0
-  }
-];
-
 export class PhotoFunctions {
   p5;
   aura;
@@ -106,8 +63,6 @@ export class PhotoFunctions {
   };
 
   drawAuras = function(photo, result, answers) {
-    answers = answers || fakeAnswers;
-
     result.imageMode(this.p5.CENTER);
 
     result.push();
@@ -120,7 +75,8 @@ export class PhotoFunctions {
     answers.forEach(function(answer) {
       result.push();
 
-      result.rotate(this.p5.TWO_PI * (auraPos[answer.typeOf] + 0.5) / answers.length);
+      const angle = this.p5.TWO_PI * (auraPos[answer.typeOf] + 0.5) / answers.length;
+      result.rotate(angle);
       auraPos[answer.typeOf] += 1;
 
       this.drawAura(result, this.aura, answer);
@@ -144,16 +100,20 @@ export class PhotoFunctions {
                          answer.value);
     }
 
-    photo.translate(this.p5.random(0.4, 0.8) * photo.width,
+    photo.translate(this.p5.random(0.4, 0.666) * photo.width,
                     this.p5.random(-0.2, 0.2) * photo.width);
 
-    c.setAlpha((answer.weight > 0) ? 150 : 64);
-    photo.tint(c);
-    photo.image(aura, 0, 0, photo.width, photo.height);
+    const scale = (answer.weight > 0.01) ? 1.5 : 0.6;
 
-    c.setAlpha((answer.weight > 0) ? 200 : 100);
+    c.setAlpha(scale * 120);
     photo.tint(c);
-    photo.image(aura, -0.1 * photo.width, 0, photo.width, photo.height);
+    photo.image(aura, 0, 0, scale * photo.width, scale * photo.height);
+
+    c.setAlpha(scale * 140);
+    photo.tint(c);
+    photo.image(aura,
+                -0.1 * photo.width, 0,
+                0.5 * scale * photo.width, 0.5 * scale * photo.height);
 
     photo.pop();
   };
