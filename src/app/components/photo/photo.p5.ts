@@ -1,42 +1,42 @@
 const fakeAnswers = [
   {
-    type: 'int',
+    typeOf: 'TREND',
     value: 0,
     weight: 0.5
   },
   {
-    type: 'int',
+    typeOf: 'TREND',
     value: 1,
     weight: 0.2
   },
   {
-    type: 'int',
+    typeOf: 'OTHER',
     value: 2,
     weight: 0.2
   },
   {
-    type: 'int',
+    typeOf: 'OTHER',
     value: 3,
     weight: 0.1
   },
   {
-    type: 'float',
+    typeOf: 'PROFILE',
     value: 0.0,
     weight: 0.33
   },
   {
-    type: 'float',
+    typeOf: 'PROFILE',
     value: 0.5,
     weight: 0.25
   },
   {
-    type: 'float',
-    value: 0.5,
+    typeOf: 'OTHER',
+    value: 0,
     weight: 0.25
   },
   {
-    type: 'float',
-    value: 1.0,
+    typeOf: 'OTHER',
+    value: 1,
     weight: 0.17
   }
 ];
@@ -46,8 +46,8 @@ export class PhotoFunctions {
   aura;
 
   private colors = {
-    float: [ 0x36A9FE, 0xFF4399 ],
-    int: [ 0xfd5f00, 0xddff00, 0x39ff14, 0x6f00ff, 0xffffff ]
+    PROFILE: [ 0x36A9FE, 0xFF4399 ],
+    TREND: [ 0xfd5f00, 0xddff00, 0x39ff14, 0x6f00ff, 0xffffff ]
   };
 
   constructor(p5) {
@@ -116,12 +116,12 @@ export class PhotoFunctions {
     result.noTint();
     result.image(photo, 0, 0);
 
-    const auraPos = { float: 0, int: 4 };
+    const auraPos = { PROFILE: 0, TREND: 4 };
     answers.forEach(function(answer) {
       result.push();
 
-      result.rotate(this.p5.TWO_PI * (auraPos[answer.type] + 0.666) / answers.length);
-      auraPos[answer.type] += 1;
+      result.rotate(this.p5.TWO_PI * (auraPos[answer.typeOf] + 0.666) / answers.length);
+      auraPos[answer.typeOf] += 1;
 
       this.drawAura(result, this.aura, answer);
 
@@ -136,11 +136,11 @@ export class PhotoFunctions {
     photo.push();
     let c;
 
-    if (answer.type === 'int') {
-      c = this.intToColor(this.colors.int[answer.value]);
+    if (answer.typeOf === 'TREND') {
+      c = this.intToColor(this.colors.TREND[answer.value]);
     } else {
-      c = this.lerpColor(this.colors.float[0],
-                         this.colors.float[1],
+      c = this.lerpColor(this.colors.PROFILE[0],
+                         this.colors.PROFILE[1],
                          answer.value);
     }
 
