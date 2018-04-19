@@ -28,6 +28,8 @@ export class LoginComponent implements OnInit {
       this.currentState = 'Waiting';
       return;
     }
+    this.currentState = 'Looking';
+
     this.user._id = this.user._id.toUpperCase();
 
     const component = this;
