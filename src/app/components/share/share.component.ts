@@ -38,8 +38,9 @@ export class ShareComponent implements OnInit {
 
       QRCode.toCanvas(canvasElement,
                       userURL,
-                      { errorCorrectionLevel: 'H', version: 4 },
+                      { errorCorrectionLevel: 'H', version: 6 },
                       function(error) {
+                        if (error) { console.log(error); }
                         canvasElement.style.width = '200px';
                         canvasElement.style.height = '200px';
       });
