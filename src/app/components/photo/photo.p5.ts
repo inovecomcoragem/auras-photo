@@ -4,7 +4,7 @@ export class PhotoFunctions {
 
   private colors = {
     PROFILE: [ 0x36A9FE, 0xFF4399 ],
-    TREND: [ 0xfd5f00, 0xddff00, 0x39ff14, 0x6f00ff, 0xffffff ]
+    TREND: [ 0xc0132e, 0xfa681f, 0xfec434, 0x538e0f, 0x309dc7 ]
   };
 
   constructor(p5) {
