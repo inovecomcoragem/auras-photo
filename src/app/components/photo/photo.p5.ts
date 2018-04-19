@@ -2,6 +2,45 @@ export class PhotoFunctions {
   p5;
   aura;
 
+  private getValue = {
+    'EVO_INTER': 0,
+    'RISE_PLAT': 1,
+    'SEC_PRIV': 2,
+    'HUMAN_AUG': 3,
+    'RISE_ROBOT': 4,
+    'Otimista': 0,
+    'Apreensiva': 1,
+    'Curiosa': 2,
+    'Esperançosa': 3,
+    'Assustada': 4,
+    'Curiosidade': 0,
+    'Impulso de aprender': 1,
+    'Inspiração': 2,
+    'Oportunidades': 3,
+    'Receio': 4,
+    'Criar coisas novas': 0.7,
+    'Desenvolver habilidades': 0.5,
+    'Impulsionar a mudança': 0.2,
+    'Aprender na prática': 0.9,
+    'Aproveitar possibilidades': 0.3,
+    'Coragem': 0.5,
+    'Rebeldia': 0.9,
+    'Conhecimento técnico': 0.8,
+    'Adaptabilidade': 0.5,
+    'Empatia': 0.2,
+    '0.0': 0.0,
+    '0.1': 0.1,
+    '0.2': 0.2,
+    '0.3': 0.3,
+    '0.4': 0.4,
+    '0.5': 0.5,
+    '0.6': 0.6,
+    '0.7': 0.7,
+    '0.8': 0.8,
+    '0.9': 0.9,
+    '1.0': 1.0
+  };
+
   private colors = {
     PROFILE: [ 0x36A9FE, 0xFF4399 ],
     TREND: [ 0xc0132e, 0xfa681f, 0xfec434, 0x538e0f, 0x309dc7 ]
@@ -93,17 +132,17 @@ export class PhotoFunctions {
     let c;
 
     if (answer.typeOf === 'TREND') {
-      c = this.intToColor(this.colors.TREND[answer.value]);
+      c = this.intToColor(this.colors.TREND[this.getValue[answer.value]]);
     } else if (answer.typeOf === 'PROFILE') {
       c = this.lerpColor(this.colors.PROFILE[0],
                          this.colors.PROFILE[1],
-                         answer.value);
+                         this.getValue[answer.value]);
     }
 
     photo.translate(this.p5.random(0.4, 0.666) * photo.width,
                     this.p5.random(-0.2, 0.2) * photo.width);
 
-    const scale = (answer.weight > 0.01) ? 1.5 : 0.6;
+    const scale = (answer.weight > 0.01) ? 1.5 : 0.8;
 
     c.setAlpha(scale * 120);
     photo.tint(c);
