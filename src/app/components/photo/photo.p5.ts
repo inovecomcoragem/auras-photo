@@ -28,6 +28,7 @@ export class PhotoFunctions {
     'Conhecimento técnico': 0.8,
     'Adaptabilidade': 0.5,
     'Empatia': 0.2,
+    '0': 0.0,
     '0.0': 0.0,
     '0.1': 0.1,
     '0.2': 0.2,
@@ -38,7 +39,8 @@ export class PhotoFunctions {
     '0.7': 0.7,
     '0.8': 0.8,
     '0.9': 0.9,
-    '1.0': 1.0
+    '1.0': 1.0,
+    '1': 1
   };
 
   private colors = {
