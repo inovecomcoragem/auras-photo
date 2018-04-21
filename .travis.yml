@@ -13,5 +13,5 @@ before_script:
   - git config --local user.email "$USER_EMAIL"
 
 script:
-  - ./node_modules/\@angular/cli/bin/ng build --prod --base-href "/auras-photo-app/"
-  - ./node_modules/angular-cli-ghpages/bin/angular-cli-ghpages --repo=https://$GHTOKEN@github.com/thiagohersan/auras-photo-app.git
+  - ./node_modules/\@angular/cli/bin/ng build --prod --base-href "/auras-photo/"
+  - ./node_modules/angular-cli-ghpages/bin/angular-cli-ghpages --repo=https://$GHTOKEN@github.com/thiagohersan/auras-photo.git
