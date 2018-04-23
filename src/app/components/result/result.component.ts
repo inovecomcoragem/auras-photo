@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { environment } from '../../../environments/environment';
 import { PhotoService } from '../../providers/photo.service';
 import { UserService } from '../../providers/user.service';
 import { User } from '../../models/user.model';
@@ -36,7 +37,7 @@ export class ResultComponent implements OnInit {
     this.showAura = !this.showAura;
 
     let imageString = 'url("' + this.photoService.cameraImage + '")';
-    if (this.showAura) {
+    if ((!environment.production) && this.showAura) {
       imageString = 'url("' + this.photoService.auraImage + '")';
     }
     this.photoResult.nativeElement.style['background-image'] = imageString;
