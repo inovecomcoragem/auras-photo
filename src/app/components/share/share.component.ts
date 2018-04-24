@@ -52,6 +52,6 @@ export class ShareComponent implements OnInit {
   }
 
   restart() {
-    window.location.href = '../';
+    window.location.href = './';
   }
 }
