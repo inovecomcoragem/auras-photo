@@ -21,8 +21,11 @@
   padding-top: 100%;
 }
 
+.share-qr-text {
+  display: none;
+}
 .share-qr-canvas {
-  display: block;
+  display: none;
   padding: 0;
   margin: 0 auto;
 }

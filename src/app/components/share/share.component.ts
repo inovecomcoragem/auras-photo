@@ -50,4 +50,8 @@ export class ShareComponent implements OnInit {
       }.bind(this));
     }
   }
+
+  restart() {
+    window.location.href = '../';
+  }
 }

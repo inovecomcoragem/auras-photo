@@ -1,4 +1,4 @@
-<div class="app-text share-text">
+<div class="app-text share-text share-qr-text">
   <p>Visualize o resultado da<br>sua fotografia utilizando o <b>código abaixo</b> no seu smartphone</p>
 </div>
 
@@ -9,7 +9,7 @@
 </div>
 
 <div class="app-text share-home-button-container" *ngIf="imageUploaded">
-  <div routerLink="/login" class="share-home-button">
+  <div class="share-home-button" (click)="restart()">
     <i class="ion ion-android-arrow-forward"></i>
   </div>
   <div class="share-home-button-text">
