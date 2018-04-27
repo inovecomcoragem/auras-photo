@@ -10,7 +10,7 @@ export class SensorService {
   constructor(private http: HttpClient) { }
 
   getTouch(): any {
-    return this.http.get(this.SENSOR_SERVER_URL + '/get-touch/');
+    return this.http.get(this.SENSOR_SERVER_URL + '/get-touch');
   }
 
   setLight(lightVal: string): any {
