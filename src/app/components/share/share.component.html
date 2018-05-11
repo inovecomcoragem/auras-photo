@@ -5,14 +5,14 @@
 <canvas #qrCanvas class="share-qr-canvas"></canvas>
 
 <div class="app-text share-text share-email-text" *ngIf="user">
-  Enviamos uma cópia do resultado para<br>o e-mail cadastrado<br><b>{{ user.email }}</b>
+  Enviamos uma cópia do resultado para<br>o e-mail cadastrado
+  <input class="share-email-input" type="text" [(ngModel)]="user.email">
 </div>
 
-<div class="app-text share-home-button-container" *ngIf="imageUploaded">
-  <div class="share-home-button" (click)="restart()">
-    <i class="ion ion-android-arrow-forward"></i>
+<div class="app-text share-home-button-container">
+  <div class="share-home-button" (click)="submit()">
+    <i class="ion ion-android-arrow-forward" *ngIf="!imageUploading"></i>
+    <i class="ion ion-loop share-uploading-image" *ngIf="imageUploading"></i>
   </div>
-  <div class="share-home-button-text">
-    Finalizar
-  </div>
+  <div class="share-home-button-text" *ngIf="!imageUploading">Finalizar</div>
 </div>

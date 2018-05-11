@@ -9,6 +9,17 @@
   margin: 60px auto 40px;
 }
 
+.share-email-input {
+  width: 100%;
+  margin-top: 40px;
+  border-radius: 4px;
+  border: 1px solid #cccccc;
+  text-align: center;
+  padding: 16px 0;
+  font: bold normal 20px 'Open Sans', sans-serif;
+  text-transform: uppercase;
+}
+
 .share-square-container {
   position: relative;
   overflow: hidden;
@@ -48,6 +59,16 @@
   &:hover {
     background-color: #4087da;
   }
+}
+
+.share-uploading-image {
+  pointer-events: none;
+  cursor: default;
+  animation: spin 1.333s linear infinite;
+}
+
+@keyframes spin {
+  100% { transform:rotate(360deg); }
 }
 
 .share-home-button-text {

@@ -17,7 +17,7 @@ declare var QRCode: any;
 
 export class ShareComponent implements OnInit {
   user: User;
-  imageUploaded: boolean;
+  imageUploading: boolean;
 
   @ViewChild('qrCanvas') qrCanvas: ElementRef;
 
@@ -30,28 +30,15 @@ export class ShareComponent implements OnInit {
       this.router.navigate(['/login']);
     } else {
       this.user = this.userService.user;
-      this.imageUploaded = false;
+      this.imageUploading = false;
       this.userService.user.image = this.photoService.auraImage.replace(/^data:image\/[jpengig]+;base64,/, '');
-
-      const userURL = environment.resultURL + '/' + this.user._id;
-      const canvasElement = this.qrCanvas.nativeElement;
-
-      QRCode.toCanvas(canvasElement,
-                      userURL,
-                      { errorCorrectionLevel: 'H', version: 6 },
-                      function(error) {
-                        if (error) { console.log(error); }
-                        canvasElement.style.width = '200px';
-                        canvasElement.style.height = '200px';
-      });
-
-      this.userService.sendImage(this.user).subscribe(function(data) {
-        this.imageUploaded = data.success;
-      }.bind(this));
     }
   }
 
-  restart() {
-    window.location.href = './';
+  submit() {
+    this.imageUploading = true;
+    this.userService.sendImage(this.user).subscribe(function(data) {
+      window.location.href = './';
+    }.bind(this));
   }
 }
