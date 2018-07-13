@@ -28,7 +28,7 @@ export class ResultComponent implements OnInit {
       this.router.navigate(['/login']);
     } else {
       this.user = this.userService.user;
-      this.user.accepted_conditions = true;
+      this.user.image_permission = true;
       this.toggleAura();
     }
   }

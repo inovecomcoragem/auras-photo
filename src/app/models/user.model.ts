@@ -3,6 +3,6 @@ export class User {
   name: string;
   email: string;
   profile: string;
-  accepted_conditions: boolean;
+  image_permission: boolean;
   image: string;
 }
