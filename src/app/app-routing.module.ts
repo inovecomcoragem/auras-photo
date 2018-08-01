@@ -11,6 +11,7 @@ import { ShareComponent } from './components/share/share.component';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  { path: 'login/:id', component: LoginComponent },
   { path: 'photo', component: PhotoComponent },
   { path: 'result', component: ResultComponent },
   { path: 'share', component: ShareComponent },

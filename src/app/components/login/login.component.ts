@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { UserService } from '../../providers/user.service';
 import { User } from '../../models/user.model';
@@ -14,13 +14,23 @@ export class LoginComponent implements OnInit {
   user: User;
   currentState: string;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService,
+               private router: Router,
+               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.user = this.userService.user;
     this.user._id = '';
     this.user.email = '';
     this.currentState = 'Waiting';
+
+    this.activatedRoute.params.subscribe(
+      params => {
+        if (params.id) {
+          this.user._id = params.id.toUpperCase().substring(0, 6);
+          this.getUser();
+        }
+      });
   }
 
   getUser() {
