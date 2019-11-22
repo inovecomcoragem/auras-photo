@@ -34,8 +34,12 @@ export class PhotoComponent implements OnInit, OnDestroy {
     if (!this.userService.isLoggedIn()) {
       this.router.navigate(['/login']);
     } else {
-      this.p5 = new p5(this.sketch.bind(this));
-      this.countDown = 0;
+      const thisComponent = this;
+      navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+        .then(function(stream) {
+          thisComponent.p5 = new p5(thisComponent.sketch.bind(thisComponent));
+          thisComponent.countDown = 0;
+      }).catch(function(err) {});
     }
   }
 
