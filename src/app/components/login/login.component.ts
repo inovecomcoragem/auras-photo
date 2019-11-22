@@ -24,8 +24,6 @@ export class LoginComponent implements OnInit {
     this.user.email = '';
     this.currentState = 'Waiting';
 
-    this.getCameraPermission();
-
     this.activatedRoute.params.subscribe(
       params => {
         if (params.id) {
@@ -33,12 +31,6 @@ export class LoginComponent implements OnInit {
           this.getUser();
         }
       });
-  }
-
-  getCameraPermission() {
-    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-      .then(function(stream) {})
-      .catch(function(err) {});
   }
 
   getUser() {
