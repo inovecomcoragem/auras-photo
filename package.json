@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4420"
+    "start": "ng serve --port 4420 --host=0.0.0.0",
+    "ssl": "ng serve --port 4420 --host=0.0.0.0 --ssl --ssl-key ssl/localhost.key  --ssl-cert ssl/localhost.crt"
   },
   "private": true,
   "dependencies": {
