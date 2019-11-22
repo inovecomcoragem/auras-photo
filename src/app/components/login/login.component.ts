@@ -36,7 +36,9 @@ export class LoginComponent implements OnInit {
   }
 
   getCameraPermission() {
-    navigator.getUserMedia ({ video: true, audio: false }, () => {}, () => {});
+    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+      .then(function(stream) {})
+      .catch(function(err) {});
   }
 
   getUser() {
